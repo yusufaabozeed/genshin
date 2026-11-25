@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ديلي جنشن</title>
+<style>
+:root{box-sizing:border-box;--bg:#f6f4ee;--card:#fff;--tx:#23212b;--mu:#6d6a78;--ac:#6c4bd8;--ok:#1f9d63;--bad:#d64545;--bd:#e3dfd3;
+padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15131c;--card:#201d2b;--tx:#eeeaf8;--mu:#9a96ab;--ac:#9b82ff;--ok:#4cd694;--bad:#ff7a7a;--bd:#332f44}}
+:root[data-theme="dark"]{--bg:#15131c;--card:#201d2b;--tx:#eeeaf8;--mu:#9a96ab;--ac:#9b82ff;--ok:#4cd694;--bad:#ff7a7a;--bd:#332f44}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;line-height:1.6}
+main{max-width:640px;margin:0 auto;padding:14px}
+h1{font-size:20px;margin:6px 0 2px}h2{font-size:16px;margin:0 0 8px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;margin:12px 0}
+.mu{color:var(--mu);font-size:13px}
+.banner{display:none;background:var(--bad);color:#fff;border-radius:12px;padding:10px 14px;font-weight:600}
+.banner.on{display:block}
+.big{width:100%;border:0;border-radius:14px;padding:16px;font-size:18px;font-weight:700;color:#fff;background:var(--ac);cursor:pointer}
+.big.done{background:var(--ok)}
+.task{display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--bd);cursor:pointer}
+.task:last-child{border:0}
+.task input{width:20px;height:20px;accent-color:var(--ok)}
+.task.d span{text-decoration:line-through;color:var(--mu)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+select,input[type=number],textarea{background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:8px;font:inherit}
+button.s{background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:8px 12px;font:inherit;cursor:pointer}
+button.p{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:9px 14px;font:inherit;cursor:pointer}
+.bar{height:10px;background:var(--bd);border-radius:6px;overflow:hidden;margin:6px 0}
+.bar i{display:block;height:100%;background:var(--ok);width:0;transition:width .3s}
+#log{max-height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;margin-bottom:8px}
+.m{padding:9px 12px;border-radius:12px;white-space:pre-wrap;word-break:break-word;max-width:92%}
+.m.u{background:var(--ac);color:#fff;align-self:flex-start}
+.m.a{background:var(--bg);border:1px solid var(--bd);align-self:flex-end}
+.thumbs{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.thumbs img{width:54px;height:54px;object-fit:cover;border-radius:8px}
+textarea{width:100%;min-height:60px;resize:vertical}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.tabs button{flex:1;background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:8px 4px;font:inherit;font-size:13px;cursor:pointer}.tabs button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.pane{display:none}.pane.on{display:block}ul.n{padding-inline-start:18px;margin:0}ul.n li{margin:7px 0}.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}a{color:var(--ac)}
+</style>
+</head>
+<body>
+<main>
+<h1>✨ ديلي جنشن</h1>
+<div class="mu" id="reset"></div>
+<div class="banner" id="banner">⚠️ لسه معملتش الديلي النهاردة! إفتح اللعبة وخلّصه.</div>
+
+<nav class="tabs"><button class="on" data-t="today">اليوم</button><button data-t="news">📰 أخبار</button><button data-t="week">ويكلي</button><button data-t="gacha">🎰 حظ</button><button data-t="ai">🤖 مساعد</button><button data-t="set">⚙️</button></nav>
+<section class="pane on" id="p-today">
+<div class="card">
+  <button class="big" id="doneBtn">دوست عملت الديلي ✅</button>
+  <div class="row" style="margin-top:10px;justify-content:space-between">
+    <span id="prog" class="mu"></span><span id="streak" style="font-weight:700"></span>
+  </div>
+  <div class="bar"><i id="barfill"></i></div>
+  <div id="tasks"></div>
+</div>
+
+<div class="card">
+  <h2>💡 نصيحة النهاردة</h2>
+  <div id="tip"></div>
+  <div class="mu" id="farm" style="margin-top:6px"></div>
+  <button class="s" id="nextTip" style="margin-top:8px">نصيحة تانية</button>
+</div>
+
+<div class="card">
+  <h2>🌙 الريزن</h2>
+  <div class="row">
+    <label>الريزن دلوقتي</label><input type="number" id="resin" min="0" max="200" value="0" style="width:90px">
+    <button class="s" id="calc">احسب</button>
+  </div>
+  <div class="mu" id="resinOut" style="margin-top:6px"></div>
+</div>
+
+</section>
+<section class="pane" id="p-news">
+<div class="card"><h2>📰 آخر أخبار اللعبة</h2><div class="mu" id="newsDate"></div><ul class="n" id="news"></ul></div>
+<div class="card"><h2>🆕 من HoYoLAB (أوتوماتيك)</h2><div class="mu" id="offD"></div><ul class="n" id="off"></ul></div>
+<div class="card"><h2>🔗 HoYoLAB</h2><div>إفتح <a href="https://www.hoyolab.com" target="_blank" rel="noopener">HoYoLAB</a> للأخبار الرسمية والإيفنتات والـ Real-Time Notes. وخد سكرين شوت منه وإبعته للمساعد يحلله.</div><div class="mu" style="margin-top:6px">الربط المباشر بحسابك مش آمن من صفحة زي دي، فمتديش كوكيز أو باسورد لأي حد.</div></div>
+</section>
+<section class="pane" id="p-week"><div class="card"><h2>📆 المهام الأسبوعية والشهرية</h2><div id="wtasks"></div><div class="mu" style="margin-top:6px">الويكلي بيتصفّر الإتنين 4 الفجر بتوقيت السيرفر.</div></div></section>
+<section class="pane" id="p-gacha">
+<div class="card"><h2>🎰 عداد الحظ (بانر الشخصيات)</h2>
+<div class="row" style="justify-content:space-between"><div>السحبات من آخر 5★: <b id="gp">0</b></div><div id="gg"></div></div>
+<div class="bar"><i id="gbar"></i></div>
+<div class="mu">السوفت بيتي من حوالي 74 والهارد بيتي 90. فاضل <b id="gn"></b> للهارد بيتي.</div>
+<div class="row" style="margin-top:8px"><button class="s" id="g1">+1</button><button class="s" id="g10">+10</button><button class="s" id="gw">طلع 5★ الفيتشرد</button><button class="s" id="gl">خسرت 50/50</button></div></div>
+<div class="card"><h2>💎 حاسبة السحبات</h2><div class="row"><label>Primogems</label><input type="number" id="pr" min="0" value="0" style="width:110px"><label>Fates</label><input type="number" id="fa" min="0" value="0" style="width:70px"></div><div class="mu" id="po" style="margin-top:6px"></div></div>
+</section>
+<section class="pane" id="p-ai">
+<div class="card">
+  <h2>🤖 مساعد الأكونت (Claude)</h2>
+  <div class="mu" style="margin-bottom:8px">اكتب سؤالك ودوس الزرار، هيفتحلك Claude والسؤال جاهز ومعاه أخبار اللعبة والحظ بتاعك. إرفع السكرين شوت هناك.</div>
+  <div class="chips" id="chips"></div>
+      <textarea id="q" placeholder="مثلاً: ده البيلد بتاع هو تاو، أحسن آرتيفاكت أطوّر إيه؟"></textarea>
+  <div class="row" style="margin-top:8px">
+    <button class="p" id="send">افتح في Claude ↗</button>
+  </div>
+</div>
+
+</section>
+<section class="pane" id="p-set">
+<div class="card">
+  <h2>⚙️ إعدادات</h2>
+  <div class="row"><label>السيرفر</label>
+    <select id="server"><option value="1">Europe</option><option value="8">Asia / TW,HK,MO</option><option value="-5">America</option></select></div>
+  <div class="row" style="margin-top:8px"><label>فكّرني الساعة</label>
+    <select id="rh"></select>
+    <button class="s" id="notif">فعّل الإشعارات</button></div>
+  <div class="mu" style="margin-top:6px">الديلي بيتصفّر 4 الفجر بتوقيت السيرفر. التذكير بيشتغل والصفحة مفتوحة، ولو عايز منبّه ثابت على موبايلك إطلب مني من الشات أظبطهولك.</div>
+</div>
+</section>
+</main>
+
+<script>
+const TASKS=[["c1","كوميشن 1"],["c2","كوميشن 2"],["c3","كوميشن 3"],["c4","كوميشن 4"],["kat","إستلم مكافأة الكوميشنز من كاثرين"],["resin","صرف الريزن (دومين / بوس)"],["realm","إجمع عملة الريلم"],["exp","إبعت الإكسبيديشنز"],["hoyo","تشيك إن HoYoLAB"]];
+const TIPS=["إصرف الريزن قبل ما توصل 200 عشان متضيعش ريزن على الفاضي.","الكوميشنز الـ4 بيدوك Primogems، وبعدهم إستلم المكافأة من كاثرين عشان متضيعش.","ما تصرفش الريزن على أي حاجة غير الدومينز والبوسز اللي بتحتاجها فعلاً للبيلد.","الاكسبيديشنز بتتبعت قبل ما تنام وتستلمها الصبح، وفلوسها مفيدة.","الأرتيفاكت اللي فيه Crit Rate وCrit DMG أهم من أي ستات تانية في أغلب البيلدز.","حافظ على نسبة Crit Rate:Crit DMG قريبة من 1:2 للدمج الأحسن.","الأسلحة 4 نجوم المتطوّرة بتنفع كويس لو مفيش 5 نجوم، متحرقش الريزن على سلاح مش هتستخدمه.","إعمل تشيك إن HoYoLAB كل يوم عشان الجوائز الصغيرة تتجمع.","الريلم بيجمع عملة طول اليوم، إستلمها مرة واحدة كل يوم قبل ما تنسى.","طوّر التالنتس بعد ما تطوّر الكاركتر والسلاح، مش قبلهم.","استنى أحداث الباتش عشان تلم Primogems، الإيفنتات أحسن مصدر مجاني.","ما تبدّلش Fragile Resin غير لما تحتاجه فعلاً، وخلّيه للدومينز المهمة."];
+const DOM=["الأحد: كل الدومينز مفتوحة","الإتنين والتلات والأربع والخميس والجمعة والسبت: دومينز التالنتس والأسلحة بتتبدّل حسب اليوم، شوف الخريطة أو الكاتالوج. الأحد كله مفتوح."];
+const K="gdaily_v1";
+let S={server:1,rh:20,days:{},tip:0};
+try{const r=localStorage.getItem(K);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
+const $=id=>document.getElementById(id);
+const dk=(off=0)=>new Date(Date.now()+S.server*36e5-4*36e5-off*864e5).toISOString().slice(0,10);
+const today=()=>S.days[dk()]||(S.days[dk()]={t:{},done:false});
+
+function nextReset(){const n=new Date(Date.now()+S.server*36e5);const r=new Date(Date.UTC(n.getUTCFullYear(),n.getUTCMonth(),n.getUTCDate(),4));if(r<=n)r.setUTCDate(r.getUTCDate()+1);return r-n}
+function render(){
+  const d=today();let c=0;
+  const box=$("tasks");box.textContent="";
+  TASKS.forEach(([id,l])=>{
+    const row=document.createElement("label");row.className="task"+(d.t[id]?" d":"");
+    const cb=document.createElement("input");cb.type="checkbox";cb.checked=!!d.t[id];
+    const sp=document.createElement("span");sp.textContent=l;
+    cb.onchange=()=>{d.t[id]=cb.checked;d.done=TASKS.every(([i])=>d.t[i]);save();render()};
+    row.append(cb,sp);box.append(row);if(d.t[id])c++;
+  });
+  $("prog").textContent=c+" / "+TASKS.length+" خلصت";
+  $("barfill").style.width=(c/TASKS.length*100)+"%";
+  const b=$("doneBtn");b.className="big"+(d.done?" done":"");b.textContent=d.done?"خلصت الديلي ✔ (دوس تلغي)":"دوست عملت الديلي ✅";
+  let s=d.done?1:0;for(let i=1;i<400;i++){const x=S.days[dk(i)];if(x&&x.done)s++;else break}
+  $("streak").textContent="🔥 "+s+" يوم";
+  const ms=nextReset();$("reset").textContent="الديلي بيتصفّر بعد "+Math.floor(ms/36e5)+" ساعة و"+Math.floor(ms%36e5/6e4)+" دقيقة";
+  remind();
+}
+function remind(){
+  const d=today(),h=new Date().getHours(),late=!d.done&&h>=S.rh;
+  $("banner").classList.toggle("on",late);
+  document.title=late?"⚠️ الديلي!":"ديلي جنشن";
+  if(late&&window.Notification&&Notification.permission==="granted"){const k="n"+dk()+h;if(!sessionStorage.getItem(k)){try{sessionStorage.setItem(k,1)}catch(e){}try{new Notification("ديلي جنشن",{body:"لسه معملتش الديلي النهاردة!"})}catch(e){}}}
+}
+$("doneBtn").onclick=()=>{const d=today();d.done=!d.done;TASKS.forEach(([i])=>d.t[i]=d.done);save();render()};
+function tip(){const n=new Date().getDate();$("tip").textContent=TIPS[(n+S.tip)%TIPS.length];$("farm").textContent=new Date().getDay()===0?DOM[0]:"فكّر تفتح الدومينز اللي مفتوحة النهاردة وتصرف الريزن عليها.";}
+$("nextTip").onclick=()=>{S.tip++;save();tip()};
+$("calc").onclick=()=>{const r=Math.max(0,Math.min(200,+$("resin").value||0));const m=(200-r)*8;$("resinOut").textContent=r>=200?"الريزن فل! إصرفه دلوقتي.":"هيفل بعد "+Math.floor(m/60)+" ساعة و"+m%60+" دقيقة (الريزن بيزيد 1 كل 8 دقايق)."};
+$("server").value=S.server;$("server").onchange=e=>{S.server=+e.target.value;save();render()};
+const rh=$("rh");for(let i=0;i<24;i++){const o=document.createElement("option");o.value=i;o.textContent=i+":00";rh.append(o)}
+rh.value=S.rh;rh.onchange=e=>{S.rh=+e.target.value;save();render()};
+$("notif").onclick=()=>{if(window.Notification)Notification.requestPermission().then(()=>{$("notif").textContent=Notification.permission==="granted"?"الإشعارات شغالة":"الإشعارات مقفولة"});else $("notif").textContent="المتصفح مش بيدعمها"};
+
+// Claude link
+$("send").onclick=()=>{const q=$("q").value.trim()||"ظبطلي أكونت جنشن بتاعي";const d=today();const sys="انت مساعد خبير في Genshin Impact بتتكلم بالمصري. ساعدني أظبط أكونتي، ولو معلومة ناقصة إسألني، ومتخترعش أرقام. تقدّم الديلي: "+TASKS.filter(([i])=>d.t[i]).length+"/"+TASKS.length+". "+ctx();window.open("https://claude.ai/new?q="+encodeURIComponent(sys+"\n\nسؤالي: "+q),"_blank","noopener")};
+const NEWS=["الباتش الحالي 7.2 (نزل 4 نوفمبر): Mitya (إلكترو، كاتاليست) و Valeriy إتضافوا، وبانر Mitya وFurina خلص 24 نوفمبر.","البانر دلوقتي (من 24 نوفمبر لحد 15 ديسمبر): Zibai و Linnea ريران، ومعاهم 4 نجوم Illuga وAino وNingguang.","بانر الأسلحة: Lightbearing Moonshard و Golden Frostbound Oath، وفي Chronicled Wish لشخصيات ناتلان.","الجاي في 7.3: Anastasya (التسارية، كراي أو) و Danica (إلكترو) ظهروا رسمياً.","ميعاد 7.3 المتوقع 16 ديسمبر، واللايف ستريم تقريباً 4 أو 5 ديسمبر. ده تقدير مش رسمي، وبيتنزل في اللايف ستريم أكواد بريموجيمز."];
+const NEWSD="لقطة بتاريخ 26 نوفمبر 2026، من مواقع غير رسمية";
+function ctx(){const g=S.g||{p:0,gu:false};return "أخبار اللعبة ("+NEWSD+"): "+NEWS.join(" ")+" عداد حظ المستخدم: "+g.p+" سحبة من آخر 5★، "+(g.gu?"الجاية مضمونة":"الجاية 50/50")+". لو السؤال عن حاجة أحدث من كده قوله إنك مش متأكد."}
+$("newsDate").textContent=NEWSD+". اتأكد من HoYoLAB.";
+NEWS.forEach(t=>{const li=document.createElement("li");li.textContent=t;$("news").append(li)});
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x===b));document.querySelectorAll(".pane").forEach(p=>p.classList.toggle("on",p.id==="p-"+b.dataset.t))});
+S.p=S.p||{};
+function wk(){const[y,m,d]=dk().split("-").map(Number);const t=new Date(Date.UTC(y,m-1,d));t.setUTCDate(t.getUTCDate()-((t.getUTCDay()+6)%7));return "w"+t.toISOString().slice(0,10)}
+const PER={w:wk,h:()=>{const[y,m,d]=dk().split("-");return "h"+y+m+(+d<16?"a":"b")},m:()=>{const[y,m]=dk().split("-");return "m"+y+m}};
+const WT=[["b1","بوس ويكلي 1","w"],["b2","بوس ويكلي 2","w"],["b3","بوس ويكلي 3","w"],["pt","Parametric Transformer (كل 7 أيام)","w"],["ab","Spiral Abyss (بيتصفّر 1 و16)","h"],["th","Imaginarium Theater (شهري)","m"]];
+function wr(){const box=$("wtasks");box.textContent="";WT.forEach(([id,l,p])=>{const k=PER[p]()+id;const row=document.createElement("label");row.className="task"+(S.p[k]?" d":"");const cb=document.createElement("input");cb.type="checkbox";cb.checked=!!S.p[k];const sp=document.createElement("span");sp.textContent=l;cb.onchange=()=>{if(cb.checked)S.p[k]=true;else delete S.p[k];save();wr()};row.append(cb,sp);box.append(row)})}
+function gr(){const g=S.g||(S.g={p:0,gu:false});$("gp").textContent=g.p;$("gg").textContent=g.gu?"الجاية مضمونة ✔":"الجاية 50/50";$("gn").textContent=Math.max(0,90-g.p);$("gbar").style.width=(g.p/90*100)+"%";gp2()}
+function gp2(){const g=S.g,n=Math.floor((+$("pr").value||0)/160)+(+$("fa").value||0),need=Math.max(0,90-g.p)+(g.gu?0:90);$("po").textContent="معاك "+n+" سحبة. لضمان الشخصية في أسوأ حالة محتاج "+need+" سحبة"+(n>=need?" وإنت كفاية.":" وناقصك "+(need-n)+".")}
+$("g1").onclick=()=>{S.g.p=Math.min(89,S.g.p+1);save();gr()};
+$("g10").onclick=()=>{S.g.p=Math.min(89,S.g.p+10);save();gr()};
+$("gw").onclick=()=>{S.g.p=0;S.g.gu=false;save();gr()};
+$("gl").onclick=()=>{S.g.p=0;S.g.gu=true;save();gr()};
+$("pr").oninput=$("fa").oninput=()=>{gp2()};
+fetch("news.json",{cache:"no-store"}).then(r=>r.json()).then(j=>{
+if(Array.isArray(j.highlights)&&j.highlights.length){NEWS.length=0;NEWS.push(...j.highlights);$("news").textContent="";NEWS.forEach(t=>{const li=document.createElement("li");li.textContent=t;$("news").append(li)})}
+$("offD").textContent=j.updated?"آخر تحديث: "+j.updated:"لسه مفيش تحديث أوتوماتيك.";
+(j.official||[]).forEach(x=>{const li=document.createElement("li"),a=document.createElement("a");a.textContent=x.title;if(/^https:\/\//.test(x.url)){a.href=x.url;a.target="_blank";a.rel="noopener"}li.append(a);if(x.date){const sp=document.createElement("span");sp.className="mu";sp.textContent=" ("+x.date+")";li.append(sp)}$("off").append(li)})
+}).catch(()=>{});
+S.g=S.g||{p:0,gu:false};gr();wr();
+["أسحب لمين؟ ولا أستنى 7.3؟","أطوّر إيه الأول في أكونتي؟","إزاي أستغل الريزن أحسن؟"].forEach(t=>{const b=document.createElement("button");b.className="s";b.textContent=t;b.onclick=()=>{$("q").value=t;$("q").focus()};$("chips").append(b)});
+tip();render();setInterval(render,6e4);
+</script>
+</body>
+</html>
