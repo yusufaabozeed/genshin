@@ -1,0 +1,412 @@
+{
+  "characterAscension": [
+    {
+      "phase": 1,
+      "levelCap": 40,
+      "mora": 20000,
+      "gemTier": 1,
+      "gemCount": 1,
+      "bossMat": 0,
+      "specialty": 3,
+      "commonTier": 1,
+      "commonCount": 3
+    },
+    {
+      "phase": 2,
+      "levelCap": 50,
+      "mora": 40000,
+      "gemTier": 2,
+      "gemCount": 3,
+      "bossMat": 2,
+      "specialty": 10,
+      "commonTier": 1,
+      "commonCount": 15
+    },
+    {
+      "phase": 3,
+      "levelCap": 60,
+      "mora": 60000,
+      "gemTier": 2,
+      "gemCount": 6,
+      "bossMat": 4,
+      "specialty": 20,
+      "commonTier": 2,
+      "commonCount": 12
+    },
+    {
+      "phase": 4,
+      "levelCap": 70,
+      "mora": 80000,
+      "gemTier": 3,
+      "gemCount": 3,
+      "bossMat": 8,
+      "specialty": 30,
+      "commonTier": 2,
+      "commonCount": 18
+    },
+    {
+      "phase": 5,
+      "levelCap": 80,
+      "mora": 100000,
+      "gemTier": 3,
+      "gemCount": 6,
+      "bossMat": 12,
+      "specialty": 45,
+      "commonTier": 3,
+      "commonCount": 12
+    },
+    {
+      "phase": 6,
+      "levelCap": 90,
+      "mora": 120000,
+      "gemTier": 4,
+      "gemCount": 6,
+      "bossMat": 20,
+      "specialty": 60,
+      "commonTier": 3,
+      "commonCount": 24
+    }
+  ],
+  "talentLevels": [
+    {
+      "toLevel": 2,
+      "mora": 12500,
+      "bookTier": 1,
+      "bookCount": 3,
+      "commonTier": 1,
+      "commonCount": 6,
+      "weeklyBoss": 0,
+      "crown": 0
+    },
+    {
+      "toLevel": 3,
+      "mora": 17500,
+      "bookTier": 2,
+      "bookCount": 2,
+      "commonTier": 2,
+      "commonCount": 3,
+      "weeklyBoss": 0,
+      "crown": 0
+    },
+    {
+      "toLevel": 4,
+      "mora": 25000,
+      "bookTier": 2,
+      "bookCount": 4,
+      "commonTier": 2,
+      "commonCount": 4,
+      "weeklyBoss": 0,
+      "crown": 0
+    },
+    {
+      "toLevel": 5,
+      "mora": 30000,
+      "bookTier": 2,
+      "bookCount": 6,
+      "commonTier": 2,
+      "commonCount": 6,
+      "weeklyBoss": 0,
+      "crown": 0
+    },
+    {
+      "toLevel": 6,
+      "mora": 37500,
+      "bookTier": 2,
+      "bookCount": 9,
+      "commonTier": 2,
+      "commonCount": 9,
+      "weeklyBoss": 0,
+      "crown": 0
+    },
+    {
+      "toLevel": 7,
+      "mora": 120000,
+      "bookTier": 3,
+      "bookCount": 4,
+      "commonTier": 3,
+      "commonCount": 4,
+      "weeklyBoss": 1,
+      "crown": 0
+    },
+    {
+      "toLevel": 8,
+      "mora": 260000,
+      "bookTier": 3,
+      "bookCount": 6,
+      "commonTier": 3,
+      "commonCount": 6,
+      "weeklyBoss": 1,
+      "crown": 0
+    },
+    {
+      "toLevel": 9,
+      "mora": 450000,
+      "bookTier": 3,
+      "bookCount": 12,
+      "commonTier": 3,
+      "commonCount": 9,
+      "weeklyBoss": 2,
+      "crown": 0
+    },
+    {
+      "toLevel": 10,
+      "mora": 700000,
+      "bookTier": 3,
+      "bookCount": 16,
+      "commonTier": 3,
+      "commonCount": 12,
+      "weeklyBoss": 2,
+      "crown": 1
+    }
+  ],
+  "weaponAscension": {
+    "5": [
+      {
+        "phase": 1,
+        "levelCap": 40,
+        "mora": 10000,
+        "domainTier": 1,
+        "domainCount": 5,
+        "eliteTier": 1,
+        "eliteCount": 5,
+        "commonTier": 1,
+        "commonCount": 3
+      },
+      {
+        "phase": 2,
+        "levelCap": 50,
+        "mora": 20000,
+        "domainTier": 2,
+        "domainCount": 5,
+        "eliteTier": 1,
+        "eliteCount": 18,
+        "commonTier": 1,
+        "commonCount": 12
+      },
+      {
+        "phase": 3,
+        "levelCap": 60,
+        "mora": 30000,
+        "domainTier": 2,
+        "domainCount": 9,
+        "eliteTier": 2,
+        "eliteCount": 9,
+        "commonTier": 2,
+        "commonCount": 9
+      },
+      {
+        "phase": 4,
+        "levelCap": 70,
+        "mora": 45000,
+        "domainTier": 3,
+        "domainCount": 5,
+        "eliteTier": 2,
+        "eliteCount": 18,
+        "commonTier": 2,
+        "commonCount": 14
+      },
+      {
+        "phase": 5,
+        "levelCap": 80,
+        "mora": 55000,
+        "domainTier": 3,
+        "domainCount": 9,
+        "eliteTier": 3,
+        "eliteCount": 14,
+        "commonTier": 3,
+        "commonCount": 9
+      },
+      {
+        "phase": 6,
+        "levelCap": 90,
+        "mora": 65000,
+        "domainTier": 4,
+        "domainCount": 6,
+        "eliteTier": 3,
+        "eliteCount": 27,
+        "commonTier": 3,
+        "commonCount": 18
+      }
+    ],
+    "4": [
+      {
+        "phase": 1,
+        "levelCap": 40,
+        "mora": 5000,
+        "domainTier": 1,
+        "domainCount": 3,
+        "eliteTier": 1,
+        "eliteCount": 3,
+        "commonTier": 1,
+        "commonCount": 2
+      },
+      {
+        "phase": 2,
+        "levelCap": 50,
+        "mora": 15000,
+        "domainTier": 2,
+        "domainCount": 3,
+        "eliteTier": 1,
+        "eliteCount": 12,
+        "commonTier": 1,
+        "commonCount": 8
+      },
+      {
+        "phase": 3,
+        "levelCap": 60,
+        "mora": 20000,
+        "domainTier": 2,
+        "domainCount": 6,
+        "eliteTier": 2,
+        "eliteCount": 6,
+        "commonTier": 2,
+        "commonCount": 6
+      },
+      {
+        "phase": 4,
+        "levelCap": 70,
+        "mora": 30000,
+        "domainTier": 3,
+        "domainCount": 3,
+        "eliteTier": 2,
+        "eliteCount": 12,
+        "commonTier": 2,
+        "commonCount": 9
+      },
+      {
+        "phase": 5,
+        "levelCap": 80,
+        "mora": 35000,
+        "domainTier": 3,
+        "domainCount": 6,
+        "eliteTier": 3,
+        "eliteCount": 9,
+        "commonTier": 3,
+        "commonCount": 6
+      },
+      {
+        "phase": 6,
+        "levelCap": 90,
+        "mora": 45000,
+        "domainTier": 4,
+        "domainCount": 4,
+        "eliteTier": 3,
+        "eliteCount": 18,
+        "commonTier": 3,
+        "commonCount": 12
+      }
+    ],
+    "3": [
+      {
+        "phase": 1,
+        "levelCap": 40,
+        "mora": 5000,
+        "domainTier": 1,
+        "domainCount": 2,
+        "eliteTier": 1,
+        "eliteCount": 2,
+        "commonTier": 1,
+        "commonCount": 1
+      },
+      {
+        "phase": 2,
+        "levelCap": 50,
+        "mora": 10000,
+        "domainTier": 2,
+        "domainCount": 2,
+        "eliteTier": 1,
+        "eliteCount": 8,
+        "commonTier": 1,
+        "commonCount": 5
+      },
+      {
+        "phase": 3,
+        "levelCap": 60,
+        "mora": 15000,
+        "domainTier": 2,
+        "domainCount": 4,
+        "eliteTier": 2,
+        "eliteCount": 4,
+        "commonTier": 2,
+        "commonCount": 4
+      },
+      {
+        "phase": 4,
+        "levelCap": 70,
+        "mora": 20000,
+        "domainTier": 3,
+        "domainCount": 2,
+        "eliteTier": 2,
+        "eliteCount": 8,
+        "commonTier": 2,
+        "commonCount": 6
+      },
+      {
+        "phase": 5,
+        "levelCap": 80,
+        "mora": 25000,
+        "domainTier": 3,
+        "domainCount": 4,
+        "eliteTier": 3,
+        "eliteCount": 6,
+        "commonTier": 3,
+        "commonCount": 4
+      },
+      {
+        "phase": 6,
+        "levelCap": 90,
+        "mora": 30000,
+        "domainTier": 4,
+        "domainCount": 3,
+        "eliteTier": 3,
+        "eliteCount": 12,
+        "commonTier": 3,
+        "commonCount": 8
+      }
+    ]
+  },
+  "levelExp": {
+    "characterCumulativeExp": {
+      "1": 0,
+      "20": 120175,
+      "40": 698500,
+      "50": 1277600,
+      "60": 2131725,
+      "70": 3327650,
+      "80": 4939525,
+      "90": 8362650
+    },
+    "weaponCumulativeExp": {
+      "5": {
+        "1": 0,
+        "20": 121350,
+        "40": 755675,
+        "50": 1396525,
+        "60": 2335400,
+        "70": 3638650,
+        "80": 5377525,
+        "90": 9064450
+      },
+      "4": {
+        "1": 0,
+        "20": 80900,
+        "40": 503800,
+        "50": 931025,
+        "60": 1556950,
+        "70": 2425775,
+        "80": 3585025,
+        "90": 6042650
+      },
+      "3": {
+        "1": 0,
+        "20": 53925,
+        "40": 335875,
+        "50": 620675,
+        "60": 1037975,
+        "70": 1617175,
+        "80": 2390025,
+        "90": 4028450
+      }
+    }
+  }
+}

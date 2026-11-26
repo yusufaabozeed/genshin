@@ -1,0 +1,617 @@
+{
+  "_doc": "هذا الملف مخصص لتخصيص ترشيحات الأسلحة والآرتيفاكتس لأي شخصية. أي شخصية مش مكتوبة هنا بيتم توليد ترشيحاتها تلقائياً من السكريبت بناءً على العنصر ونوع السلاح والـ Substat.",
+  "furina": {
+    "arName": "فورينا",
+    "talentPriority": [
+      "skill",
+      "burst",
+      "normal"
+    ],
+    "recommendedWeapons": [
+      {
+        "weaponId": "splendor_of_tranquil_waters",
+        "tag": "Best in Slot (5★)"
+      },
+      {
+        "weaponId": "festering_desire",
+        "tag": "أفضل 4★ (Event)"
+      },
+      {
+        "weaponId": "fleuve_cendre_ferryman",
+        "tag": "أفضل F2P (صيد)"
+      },
+      {
+        "weaponId": "favonius_sword",
+        "tag": "طاقة للفريق (ER)"
+      }
+    ],
+    "recommendedArtifacts": [
+      {
+        "sets": [
+          {
+            "setId": "golden_troupe",
+            "pieces": 4
+          }
+        ],
+        "note": "الأفضل بلا منازع: يرفع ضرر الـ Elemental Skill بنسبة 70% خارج الملعب."
+      },
+      {
+        "sets": [
+          {
+            "setId": "tenacity_of_the_millelith",
+            "pieces": 4
+          }
+        ],
+        "note": "خيار داعم يرفع هجوم الفريق +20% ويزيد HP فورينا."
+      }
+    ],
+    "artifactStats": {
+      "sands": [
+        "HP%",
+        "Energy Recharge"
+      ],
+      "goblet": [
+        "HP%",
+        "Hydro DMG Bonus"
+      ],
+      "circlet": [
+        "CRIT Rate",
+        "CRIT DMG"
+      ],
+      "substats": [
+        "Energy Recharge",
+        "CRIT Rate / DMG",
+        "HP%"
+      ],
+      "breakpoints": "HP: 35,000-40,000 | ER: 180%-200% (Solo Hydro) أو 145%-165% (Double Hydro)"
+    }
+  },
+  "hu_tao": {
+    "arName": "هو تاو",
+    "talentPriority": [
+      "normal",
+      "skill",
+      "burst"
+    ],
+    "recommendedWeapons": [
+      {
+        "weaponId": "staff_of_homa",
+        "tag": "Best in Slot (5★)"
+      },
+      {
+        "weaponId": "staff_of_the_scarlet_sands",
+        "tag": "5★ ممتاز مع الـ EM"
+      },
+      {
+        "weaponId": "dragons_bane",
+        "tag": "أفضل 4★ (Vaporize)"
+      },
+      {
+        "weaponId": "deathmatch",
+        "tag": "4★ (Battle Pass)"
+      }
+    ],
+    "recommendedArtifacts": [
+      {
+        "sets": [
+          {
+            "setId": "marechaussee_hunter",
+            "pieces": 4
+          }
+        ],
+        "note": "الأقوى إذا كانت تلعب مع Furina في الفريق (+36% CRIT Rate)."
+      },
+      {
+        "sets": [
+          {
+            "setId": "crimson_witch_of_flames",
+            "pieces": 4
+          }
+        ],
+        "note": "الأفضل في الفرق الكلاسيكية بدون Furina لرفع ضرر الـ Vaporize."
+      },
+      {
+        "sets": [
+          {
+            "setId": "shimenawas_reminiscence",
+            "pieces": 4
+          }
+        ],
+        "note": "ضرر Charged Attack عالي جداً لكن يقلل استخدام الـ Burst."
+      }
+    ],
+    "artifactStats": {
+      "sands": [
+        "HP%",
+        "Elemental Mastery"
+      ],
+      "goblet": [
+        "Pyro DMG Bonus"
+      ],
+      "circlet": [
+        "CRIT Rate",
+        "CRIT DMG"
+      ],
+      "substats": [
+        "CRIT Rate / DMG",
+        "Elemental Mastery (100-300)",
+        "HP%"
+      ],
+      "breakpoints": "EM: 200-300 | HP: 30,000+ | CRIT Ratio: 70/200+"
+    }
+  },
+  "neuvillette": {
+    "arName": "نوفيلت",
+    "talentPriority": [
+      "normal",
+      "burst",
+      "skill"
+    ],
+    "recommendedWeapons": [
+      {
+        "weaponId": "tome_of_the_eternal_flow",
+        "tag": "Best in Slot (5★)"
+      },
+      {
+        "weaponId": "sacrificial_jade",
+        "tag": "أفضل 4★ (BP)"
+      },
+      {
+        "weaponId": "prototype_amber",
+        "tag": "أفضل F2P (حدادة + هيل)"
+      }
+    ],
+    "recommendedArtifacts": [
+      {
+        "sets": [
+          {
+            "setId": "marechaussee_hunter",
+            "pieces": 4
+          }
+        ],
+        "note": "الأفضل بلا منازع: يعطي 36% CRIT Rate مجاني من تغير الـ HP."
+      }
+    ],
+    "artifactStats": {
+      "sands": [
+        "HP%"
+      ],
+      "goblet": [
+        "Hydro DMG Bonus",
+        "HP%"
+      ],
+      "circlet": [
+        "CRIT DMG",
+        "CRIT Rate"
+      ],
+      "substats": [
+        "CRIT DMG / Rate",
+        "HP%",
+        "Energy Recharge (115-130%)"
+      ],
+      "breakpoints": "HP: 38,000-42,000 | CRIT Rate: 55-64% (تصل 90-100% بالباسيف)"
+    }
+  },
+  "arlecchino": {
+    "arName": "أرليكيبنو",
+    "talentPriority": [
+      "normal",
+      "skill",
+      "burst"
+    ],
+    "recommendedWeapons": [
+      {
+        "weaponId": "crimson_moons_semblance",
+        "tag": "Best in Slot (5★)"
+      },
+      {
+        "weaponId": "staff_of_homa",
+        "tag": "بديل 5★ قوي"
+      },
+      {
+        "weaponId": "deathmatch",
+        "tag": "أفضل 4★"
+      },
+      {
+        "weaponId": "white_tassel",
+        "tag": "أفضل 3★ F2P (صناديق ليويه)"
+      }
+    ],
+    "recommendedArtifacts": [
+      {
+        "sets": [
+          {
+            "setId": "fragment_of_harmonic_whimsy",
+            "pieces": 4
+          }
+        ],
+        "note": "الأقوى خصيصاً لآلية Bond of Life (+54% DMG Bonus)."
+      },
+      {
+        "sets": [
+          {
+            "setId": "gladiators_finale",
+            "pieces": 4
+          }
+        ],
+        "note": "بديل جاهز وقريب جداً في الضرر (+35% Normal Attack)."
+      }
+    ],
+    "artifactStats": {
+      "sands": [
+        "ATK%"
+      ],
+      "goblet": [
+        "Pyro DMG Bonus"
+      ],
+      "circlet": [
+        "CRIT Rate",
+        "CRIT DMG"
+      ],
+      "substats": [
+        "CRIT Rate / DMG",
+        "ATK%",
+        "Elemental Mastery"
+      ],
+      "breakpoints": "ATK: 2,000+ | CRIT Rate: 75%+ | ER: 100-115%"
+    }
+  },
+  "mavuika": {
+    "arName": "مافيكا",
+    "talentPriority": [
+      "burst",
+      "skill",
+      "normal"
+    ],
+    "recommendedWeapons": [
+      {
+        "weaponId": "a_thousand_blazing_suns",
+        "tag": "Best in Slot (5★)"
+      },
+      {
+        "weaponId": "beacon_of_the_reed_sea",
+        "tag": "بديل 5★ ممتاز"
+      },
+      {
+        "weaponId": "serpent_spine",
+        "tag": "أفضل 4★ (BP)"
+      },
+      {
+        "weaponId": "tidal_shadow",
+        "tag": "أفضل F2P (حدادة فونتين)"
+      }
+    ],
+    "recommendedArtifacts": [
+      {
+        "sets": [
+          {
+            "setId": "obsidian_codex",
+            "pieces": 4
+          }
+        ],
+        "note": "الأفضل كـ Main DPS (+40% CRIT Rate أثناء Nightsoul)."
+      },
+      {
+        "sets": [
+          {
+            "setId": "scroll_of_the_hero_of_cinder_city",
+            "pieces": 4
+          }
+        ],
+        "note": "الأفضل إذا لعبتها كـ Sub-DPS / Support للفريق."
+      }
+    ],
+    "artifactStats": {
+      "sands": [
+        "ATK%",
+        "Elemental Mastery"
+      ],
+      "goblet": [
+        "Pyro DMG Bonus"
+      ],
+      "circlet": [
+        "CRIT DMG",
+        "CRIT Rate"
+      ],
+      "substats": [
+        "CRIT DMG / Rate",
+        "ATK%",
+        "Elemental Mastery"
+      ],
+      "breakpoints": "CRIT Rate: 50-60% (مع Obsidian تصل 90-100%) | EM: 150-250 في Melt/Vape"
+    }
+  },
+  "xilonen": {
+    "arName": "زيلونين",
+    "talentPriority": [
+      "skill",
+      "burst",
+      "normal"
+    ],
+    "recommendedWeapons": [
+      {
+        "weaponId": "peak_patrol_song",
+        "tag": "Best in Slot (5★)"
+      },
+      {
+        "weaponId": "favonius_sword",
+        "tag": "أفضل 4★ (طاقة للفريق)"
+      },
+      {
+        "weaponId": "flute_of_ezpitzal",
+        "tag": "أفضل F2P (حدادة ناتلان)"
+      }
+    ],
+    "recommendedArtifacts": [
+      {
+        "sets": [
+          {
+            "setId": "scroll_of_the_hero_of_cinder_city",
+            "pieces": 4
+          }
+        ],
+        "note": "أساسي: يعطي +40% Elemental DMG Bonus للفريق كله."
+      }
+    ],
+    "artifactStats": {
+      "sands": [
+        "DEF%",
+        "Energy Recharge"
+      ],
+      "goblet": [
+        "DEF%"
+      ],
+      "circlet": [
+        "DEF%",
+        "Healing Bonus",
+        "CRIT Rate (مع Favonius)"
+      ],
+      "substats": [
+        "Energy Recharge",
+        "DEF%",
+        "CRIT Rate"
+      ],
+      "breakpoints": "DEF: 3,200+ (للوصول للحد الأقصى لباف السلاح) | ER: 160-180%"
+    }
+  },
+  "kaedehara_kazuha": {
+    "arName": "كازوها",
+    "talentPriority": [
+      "burst",
+      "skill",
+      "normal"
+    ],
+    "recommendedWeapons": [
+      {
+        "weaponId": "freedom_sworn",
+        "tag": "Best in Slot (5★)"
+      },
+      {
+        "weaponId": "favonius_sword",
+        "tag": "أفضل 4★ عملي (طاقة)"
+      },
+      {
+        "weaponId": "xiphos_moonlight",
+        "tag": "4★ ممتاز (EM + ER)"
+      },
+      {
+        "weaponId": "iron_sting",
+        "tag": "أفضل F2P (حدادة)"
+      }
+    ],
+    "recommendedArtifacts": [
+      {
+        "sets": [
+          {
+            "setId": "viridescent_venerer",
+            "pieces": 4
+          }
+        ],
+        "note": "إلزامي: يقلل مقاومة الأعداء للعناصر بنسبة 40%."
+      }
+    ],
+    "artifactStats": {
+      "sands": [
+        "Elemental Mastery",
+        "Energy Recharge"
+      ],
+      "goblet": [
+        "Elemental Mastery"
+      ],
+      "circlet": [
+        "Elemental Mastery"
+      ],
+      "substats": [
+        "Energy Recharge",
+        "Elemental Mastery",
+        "CRIT Rate (مع Favonius)"
+      ],
+      "breakpoints": "EM: 850-1,000 | ER: 160-190%"
+    }
+  },
+  "nahida": {
+    "arName": "ناهيدا",
+    "talentPriority": [
+      "skill",
+      "burst",
+      "normal"
+    ],
+    "recommendedWeapons": [
+      {
+        "weaponId": "a_thousand_floating_dreams",
+        "tag": "Best in Slot (5★)"
+      },
+      {
+        "weaponId": "kaguras_verity",
+        "tag": "5★ ممتاز للضرر"
+      },
+      {
+        "weaponId": "sacrificial_fragments",
+        "tag": "أفضل 4★ (EM عالي)"
+      },
+      {
+        "weaponId": "magic_guide",
+        "tag": "أفضل 3★ F2P"
+      }
+    ],
+    "recommendedArtifacts": [
+      {
+        "sets": [
+          {
+            "setId": "deepwood_memories",
+            "pieces": 4
+          }
+        ],
+        "note": "الأفضل في فرق الدندرو لتقليل مقاومة Dendro بنسبة 30%."
+      },
+      {
+        "sets": [
+          {
+            "setId": "gilded_dreams",
+            "pieces": 4
+          }
+        ],
+        "note": "إذا كان هناك شخصية أخرى في الفريق ترتدي Deepwood."
+      }
+    ],
+    "artifactStats": {
+      "sands": [
+        "Elemental Mastery"
+      ],
+      "goblet": [
+        "Elemental Mastery",
+        "Dendro DMG Bonus"
+      ],
+      "circlet": [
+        "Elemental Mastery",
+        "CRIT Rate / DMG"
+      ],
+      "substats": [
+        "Elemental Mastery",
+        "CRIT Rate / DMG",
+        "Energy Recharge"
+      ],
+      "breakpoints": "EM: 800-1,000 | ER: 120-140%"
+    }
+  },
+  "raiden_shogun": {
+    "arName": "رايدن شوجن",
+    "talentPriority": [
+      "burst",
+      "skill",
+      "normal"
+    ],
+    "recommendedWeapons": [
+      {
+        "weaponId": "engulfing_lightning",
+        "tag": "Best in Slot (5★)"
+      },
+      {
+        "weaponId": "staff_of_homa",
+        "tag": "بديل 5★ قوي"
+      },
+      {
+        "weaponId": "the_catch",
+        "tag": "أفضل F2P (صيد إينازوما R5)"
+      }
+    ],
+    "recommendedArtifacts": [
+      {
+        "sets": [
+          {
+            "setId": "emblem_of_severed_fate",
+            "pieces": 4
+          }
+        ],
+        "note": "الأفضل بلا منازع: يحول الـ Energy Recharge لضرر Burst يصل +75%."
+      },
+      {
+        "sets": [
+          {
+            "setId": "flower_of_paradise_lost",
+            "pieces": 4
+          }
+        ],
+        "note": "فقط في فرق Hyperbloom بـ Full EM."
+      }
+    ],
+    "artifactStats": {
+      "sands": [
+        "Energy Recharge",
+        "ATK%"
+      ],
+      "goblet": [
+        "Electro DMG Bonus",
+        "ATK%"
+      ],
+      "circlet": [
+        "CRIT Rate",
+        "CRIT DMG"
+      ],
+      "substats": [
+        "CRIT Rate / DMG",
+        "Energy Recharge",
+        "ATK%"
+      ],
+      "breakpoints": "ER: 220-250% (أو 270% مع Engulfing) | CRIT Ratio: 65/140+"
+    }
+  },
+  "bennett": {
+    "arName": "بينيت",
+    "talentPriority": [
+      "burst",
+      "skill",
+      "normal"
+    ],
+    "recommendedWeapons": [
+      {
+        "weaponId": "mistsplitter_reforged",
+        "tag": "أعلى Base ATK (674)"
+      },
+      {
+        "weaponId": "aquila_favonia",
+        "tag": "أعلى Base ATK (674)"
+      },
+      {
+        "weaponId": "skyward_blade",
+        "tag": "5★ ممتاز (Base ATK 608 + ER)"
+      },
+      {
+        "weaponId": "the_alley_flash",
+        "tag": "أعلى 4★ Base ATK (620)"
+      },
+      {
+        "weaponId": "sapwood_blade",
+        "tag": "أفضل 4★ F2P (حدادة سوميرو)"
+      }
+    ],
+    "recommendedArtifacts": [
+      {
+        "sets": [
+          {
+            "setId": "noblesse_oblige",
+            "pieces": 4
+          }
+        ],
+        "note": "الأفضل دائماً: يضيف +20% ATK للفريق فوق باف الـ Burst."
+      }
+    ],
+    "artifactStats": {
+      "sands": [
+        "Energy Recharge"
+      ],
+      "goblet": [
+        "HP%"
+      ],
+      "circlet": [
+        "Healing Bonus",
+        "HP%"
+      ],
+      "substats": [
+        "Energy Recharge",
+        "HP%"
+      ],
+      "breakpoints": "ER: 220%-260% | Base ATK: أعلى ما يمكن (السلاح لفل 90 مهم جداً)"
+    }
+  }
+}
