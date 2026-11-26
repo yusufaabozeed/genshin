@@ -1,0 +1,14 @@
+{
+  "name": "daily-genshin-db",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "ديلي جنشن - متتبع المهام اليومية وقاعدة بيانات وحاسبة تطوير الشخصيات والأسلحة والآرتيفاكتس",
+  "scripts": {
+    "sync-db": "node scripts/sync-database.mjs",
+    "update-news": "node scripts/update-news.mjs"
+  },
+  "dependencies": {
+    "genshin-db": "latest"
+  }
+}
