@@ -1,0 +1,48 @@
+name: Sync Genshin Database
+
+on:
+  schedule:
+    # Runs every Wednesday at 06:00 UTC (catches every new patch & banner update automatically)
+    - cron: '0 6 * * 3'
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'scripts/sync-database.mjs'
+      - 'data/builds-overrides.json'
+      - 'package.json'
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install genshin-db (latest patch data)
+        run: npm install genshin-db@latest --no-audit --no-fund
+
+      - name: Build complete game database
+        run: node scripts/sync-database.mjs
+
+      - name: Commit and push updated database
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          if git diff --staged --quiet; then
+            echo "Database is already up to date."
+          else
+            git commit -m "chore(db): sync full Genshin characters, weapons & artifacts database"
+            git push
+          fi
