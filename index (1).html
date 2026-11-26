@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ديلي جنشن</title>
+<style>
+:root{box-sizing:border-box;--bg:#f6f4ee;--card:#fff;--tx:#23212b;--mu:#6d6a78;--ac:#6c4bd8;--ok:#1f9d63;--bad:#d64545;--bd:#e3dfd3;--warn:#d9822b;
+padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15131c;--card:#201d2b;--tx:#eeeaf8;--mu:#9a96ab;--ac:#9b82ff;--ok:#4cd694;--bad:#ff7a7a;--bd:#332f44;--warn:#f5a623}}
+:root[data-theme="dark"]{--bg:#15131c;--card:#201d2b;--tx:#eeeaf8;--mu:#9a96ab;--ac:#9b82ff;--ok:#4cd694;--bad:#ff7a7a;--bd:#332f44;--warn:#f5a623}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;line-height:1.6}
+main{max-width:680px;margin:0 auto;padding:14px}
+h1{font-size:20px;margin:6px 0 2px}h2{font-size:16px;margin:0 0 8px}h3{font-size:14px;margin:10px 0 6px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;margin:12px 0}
+.mu{color:var(--mu);font-size:13px}
+.banner{display:none;background:var(--bad);color:#fff;border-radius:12px;padding:10px 14px;font-weight:600}
+.banner.on{display:block}
+.big{width:100%;border:0;border-radius:14px;padding:16px;font-size:18px;font-weight:700;color:#fff;background:var(--ac);cursor:pointer}
+.big.done{background:var(--ok)}
+.task{display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--bd);cursor:pointer}
+.task:last-child{border:0}
+.task input{width:20px;height:20px;accent-color:var(--ok)}
+.task.d span{text-decoration:line-through;color:var(--mu)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+select,input[type=number],input[type=text],textarea{background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:8px;font:inherit}
+button.s{background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:7px 11px;font:inherit;font-size:13px;cursor:pointer}
+button.s:hover{border-color:var(--ac)}
+button.p{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:9px 14px;font:inherit;cursor:pointer}
+.bar{height:10px;background:var(--bd);border-radius:6px;overflow:hidden;margin:6px 0}
+.bar i{display:block;height:100%;background:var(--ok);width:0;transition:width .3s}
+textarea{width:100%;min-height:60px;resize:vertical}
+.tabs{display:flex;gap:5px;flex-wrap:wrap;margin:10px 0}.tabs button{flex:1;min-width:68px;background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:10px;padding:8px 4px;font:inherit;font-size:12.5px;cursor:pointer}.tabs button.on{background:var(--ac);color:#fff;border-color:var(--ac);font-weight:600}
+.pane{display:none}.pane.on{display:block}ul.n{padding-inline-start:18px;margin:0}ul.n li{margin:7px 0}.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}a{color:var(--ac)}
+
+/* Build & Resource Calculator Styles */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:480px){.grid2{grid-template-columns:1fr}}
+.badge{display:inline-block;padding:2px 8px;border-radius:99px;font-size:11.5px;font-weight:600;background:var(--bg);border:1px solid var(--bd)}
+.badge.r5{color:#d9822b;border-color:#d9822b}
+.badge.r4{color:#8e6cef;border-color:#8e6cef}
+.badge.ok{color:var(--ok);border-color:var(--ok)}
+.badge.bad{color:var(--bad);border-color:var(--bad)}
+.mat-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+.mat-table th,.mat-table td{padding:8px 6px;border-bottom:1px solid var(--bd);text-align:right;vertical-align:middle}
+.mat-table th{color:var(--mu);font-weight:600;font-size:12px}
+.mat-table input[type=number]{width:78px;padding:5px 7px;text-align:center}
+.build-box{background:var(--bg);border:1px solid var(--bd);border-radius:11px;padding:10px;margin:7px 0}
+.stat-pill{display:inline-block;background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:3px 8px;font-size:12px;margin:2px}
+.subtabs{display:flex;gap:6px;margin-bottom:10px}
+.subtabs button{flex:1;padding:7px;border-radius:9px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);cursor:pointer;font:inherit;font-size:13px}
+.subtabs button.on{background:var(--ac);color:#fff;border-color:var(--ac);font-weight:600}
+</style>
+</head>
+<body>
+<main>
+<h1>✨ ديلي جنشن</h1>
+<div class="mu" id="reset"></div>
+<div class="banner" id="banner">⚠️ لسه معملتش الديلي النهاردة! إفتح اللعبة وخلّصه.</div>
+
+<nav class="tabs">
+  <button class="on" data-t="today">اليوم</button>
+  <button data-t="build">🧮 بيلد وموارد</button>
+  <button data-t="news">📰 أخبار</button>
+  <button data-t="week">ويكلي</button>
+  <button data-t="gacha">🎰 حظ</button>
+  <button data-t="ai">🤖 مساعد</button>
+  <button data-t="set">⚙️</button>
+</nav>
+
+<section class="pane on" id="p-today">
+<div class="card">
+  <button class="big" id="doneBtn">دوست عملت الديلي ✅</button>
+  <div class="row" style="margin-top:10px;justify-content:space-between">
+    <span id="prog" class="mu"></span><span id="streak" style="font-weight:700"></span>
+  </div>
+  <div class="bar"><i id="barfill"></i></div>
+  <div id="tasks"></div>
+</div>
+
+<div class="card">
+  <h2>💡 نصيحة النهاردة</h2>
+  <div id="tip"></div>
+  <div class="mu" id="farm" style="margin-top:6px"></div>
+  <button class="s" id="nextTip" style="margin-top:8px">نصيحة تانية</button>
+</div>
+
+<div class="card">
+  <h2>🌙 الريزن</h2>
+  <div class="row">
+    <label>الريزن دلوقتي</label><input type="number" id="resin" min="0" max="200" value="0" style="width:90px">
+    <button class="s" id="calc">احسب</button>
+  </div>
+  <div class="mu" id="resinOut" style="margin-top:6px"></div>
+</div>
+</section>
+
+<!-- NEW: Build & Resource Calculator Pane -->
+<section class="pane" id="p-build">
+  <div class="card">
+    <div class="row" style="justify-content:space-between">
+      <h2>🧮 حاسبة تطوير الشخصيات والبيلد</h2>
+      <span class="mu" id="dbCount"></span>
+    </div>
+
+    <div class="grid2" style="margin-top:8px">
+      <input type="text" id="charSearch" placeholder="🔍 ابحث باسم الشخصية (Furina / فورينا)...">
+      <div class="row">
+        <select id="elemFilter" style="flex:1">
+          <option value="ALL">كل العناصر</option>
+          <option value="Pyro">Pyro 🔥</option>
+          <option value="Hydro">Hydro 💧</option>
+          <option value="Electro">Electro ⚡</option>
+          <option value="Cryo">Cryo ❄️</option>
+          <option value="Dendro">Dendro 🌿</option>
+          <option value="Anemo">Anemo 🌪️</option>
+          <option value="Geo">Geo 🪨</option>
+        </select>
+        <select id="rarityFilter">
+          <option value="ALL">كل النجوم</option>
+          <option value="5">5★</option>
+          <option value="4">4★</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="margin-top:8px">
+      <select id="charSelect" style="width:100%;font-weight:600"></select>
+    </div>
+
+    <div id="charHeader" class="row" style="margin-top:10px;justify-content:space-between"></div>
+  </div>
+
+  <div class="subtabs">
+    <button class="on" data-st="calc">📦 الموارد والمتبقي</button>
+    <button data-st="guide">⚔️ الأسلحة والآرتيفاكتس المقترحة</button>
+  </div>
+
+  <div id="st-calc">
+    <div class="card">
+      <h2>1️⃣ لفل الشخصية والتالنت والسلاح</h2>
+
+      <div class="build-box">
+        <div class="row" style="justify-content:space-between">
+          <b>👤 لفل الشخصية</b>
+          <div class="row">
+            <button class="s" id="btnChar80">80/90</button>
+            <button class="s" id="btnChar90">90/90 Max</button>
+          </div>
+        </div>
+        <div class="row" style="margin-top:6px">
+          <label class="mu">من:</label>
+          <select id="cCur"></select>
+          <label class="mu">إلى:</label>
+          <select id="cTar"></select>
+        </div>
+      </div>
+
+      <div class="build-box">
+        <div class="row" style="justify-content:space-between">
+          <b>✨ التالنت (Talents)</b>
+          <div class="row">
+            <button class="s" id="btnTal199">1/9/9</button>
+            <button class="s" id="btnTal999">9/9/9</button>
+            <button class="s" id="btnTalMax">10/10/10 👑</button>
+          </div>
+        </div>
+        <div class="grid2" style="margin-top:6px">
+          <div class="row"><span style="min-width:65px;font-size:13px">Normal:</span><select id="tN1"></select><span>→</span><select id="tN2"></select></div>
+          <div class="row"><span style="min-width:65px;font-size:13px">Skill:</span><select id="tE1"></select><span>→</span><select id="tE2"></select></div>
+          <div class="row"><span style="min-width:65px;font-size:13px">Burst:</span><select id="tQ1"></select><span>→</span><select id="tQ2"></select></div>
+        </div>
+      </div>
+
+      <div class="build-box">
+        <div class="row" style="justify-content:space-between">
+          <b>🗡️ السلاح</b>
+          <button class="s" id="btnWep90">90/90 Max</button>
+        </div>
+        <div style="margin-top:6px">
+          <select id="wepSelect" style="width:100%"></select>
+        </div>
+        <div class="row" style="margin-top:6px">
+          <label class="mu">من:</label>
+          <select id="wCur"></select>
+          <label class="mu">إلى:</label>
+          <select id="wTar"></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row" style="justify-content:space-between">
+        <h2>2️⃣ الموارد المطلوبة والمتبقي</h2>
+        <span id="buildPct" style="font-weight:700;color:var(--ok)"></span>
+      </div>
+      <div class="bar"><i id="buildBar"></i></div>
+      <label class="row mu" style="margin:6px 0;cursor:pointer">
+        <input type="checkbox" id="useCraft" checked>
+        <span>احسب تحويل الخامات 3:1 (Crafting) تلقائياً من المستويات الأقل</span>
+      </label>
+
+      <div style="overflow-x:auto">
+        <table class="mat-table">
+          <thead>
+            <tr>
+              <th>المورد</th>
+              <th>المطلوب</th>
+              <th>معاك كام؟</th>
+              <th>المتبقي</th>
+            </tr>
+          </thead>
+          <tbody id="matBody"></tbody>
+        </table>
+      </div>
+
+      <div class="row" style="margin-top:12px">
+        <button class="s" id="copyMissing">📋 انسخ قائمة النواقص</button>
+        <button class="p" id="askAiBuild">🤖 اسأل Claude عن البيلد والنواقص</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="st-guide" style="display:none">
+    <div class="card">
+      <h2>⚔️ أفضل الأسلحة المقترحة</h2>
+      <div id="recWeaponsList"></div>
+    </div>
+    <div class="card">
+      <h2>🏺 أفضل أطقم الآرتيفاكتس (Artifacts)</h2>
+      <div id="recArtifactsList"></div>
+    </div>
+    <div class="card">
+      <h2>📊 الـ Stats المطلوبة (Main & Substats)</h2>
+      <div id="recStatsBox"></div>
+    </div>
+  </div>
+</section>
+
+<section class="pane" id="p-news">
+<div class="card"><h2>📰 آخر أخبار اللعبة</h2><div class="mu" id="newsDate"></div><ul class="n" id="news"></ul></div>
+<div class="card"><h2>🆕 من HoYoLAB (أوتوماتيك)</h2><div class="mu" id="offD"></div><ul class="n" id="off"></ul></div>
+<div class="card"><h2>🔗 HoYoLAB</h2><div>إفتح <a href="https://www.hoyolab.com" target="_blank" rel="noopener">HoYoLAB</a> للأخبار الرسمية والإيفنتات والـ Real-Time Notes. وخد سكرين شوت منه وإبعته للمساعد يحلله.</div><div class="mu" style="margin-top:6px">الربط المباشر بحسابك مش آمن من صفحة زي دي، فمتديش كوكيز أو باسورد لأي حد.</div></div>
+</section>
+<section class="pane" id="p-week"><div class="card"><h2>📆 المهام الأسبوعية والشهرية</h2><div id="wtasks"></div><div class="mu" style="margin-top:6px">الويكلي بيتصفّر الإتنين 4 الفجر بتوقيت السيرفر.</div></div></section>
+<section class="pane" id="p-gacha">
+<div class="card"><h2>🎰 عداد الحظ (بانر الشخصيات)</h2>
+<div class="row" style="justify-content:space-between"><div>السحبات من آخر 5★: <b id="gp">0</b></div><div id="gg"></div></div>
+<div class="bar"><i id="gbar"></i></div>
+<div class="mu">السوفت بيتي من حوالي 74 والهارد بيتي 90. فاضل <b id="gn"></b> للهارد بيتي.</div>
+<div class="row" style="margin-top:8px"><button class="s" id="g1">+1</button><button class="s" id="g10">+10</button><button class="s" id="gw">طلع 5★ الفيتشرد</button><button class="s" id="gl">خسرت 50/50</button></div></div>
+<div class="card"><h2>💎 حاسبة السحبات</h2><div class="row"><label>Primogems</label><input type="number" id="pr" min="0" value="0" style="width:110px"><label>Fates</label><input type="number" id="fa" min="0" value="0" style="width:70px"></div><div class="mu" id="po" style="margin-top:6px"></div></div>
+</section>
+<section class="pane" id="p-ai">
+<div class="card">
+  <h2>🤖 مساعد الأكونت (Claude)</h2>
+  <div class="mu" style="margin-bottom:8px">اكتب سؤالك ودوس الزرار، هيفتحلك Claude والسؤال جاهز ومعاه أخبار اللعبة والحظ بتاعك وحاسبة الموارد. إرفع السكرين شوت هناك.</div>
+  <div class="chips" id="chips"></div>
+  <textarea id="q" placeholder="مثلاً: ده البيلد بتاع هو تاو، أحسن آرتيفاكت أطوّر إيه؟"></textarea>
+  <div class="row" style="margin-top:8px">
+    <button class="p" id="send">افتح في Claude ↗</button>
+  </div>
+</div>
+</section>
+<section class="pane" id="p-set">
+<div class="card">
+  <h2>⚙️ إعدادات</h2>
+  <div class="row"><label>السيرفر</label>
+    <select id="server"><option value="1">Europe</option><option value="8">Asia / TW,HK,MO</option><option value="-5">America</option></select></div>
+  <div class="row" style="margin-top:8px"><label>فكّرني الساعة</label>
+    <select id="rh"></select>
+    <button class="s" id="notif">فعّل الإشعارات</button></div>
+  <div class="mu" style="margin-top:6px">الديلي بيتصفّر 4 الفجر بتوقيت السيرفر. التذكير بيشتغل والصفحة مفتوحة، ولو عايز منبّه ثابت على موبايلك إطلب مني من الشات أظبطهولك.</div>
+</div>
+</section>
+</main>
+
+<script id="fallback-db" type="application/json">{"tables": {"characterAscension": [{"phase": 1, "levelCap": 40, "mora": 20000, "gemTier": 1, "gemCount": 1, "bossMat": 0, "specialty": 3, "commonTier": 1, "commonCount": 3}, {"phase": 2, "levelCap": 50, "mora": 40000, "gemTier": 2, "gemCount": 3, "bossMat": 2, "specialty": 10, "commonTier": 1, "commonCount": 15}, {"phase": 3, "levelCap": 60, "mora": 60000, "gemTier": 2, "gemCount": 6, "bossMat": 4, "specialty": 20, "commonTier": 2, "commonCount": 12}, {"phase": 4, "levelCap": 70, "mora": 80000, "gemTier": 3, "gemCount": 3, "bossMat": 8, "specialty": 30, "commonTier": 2, "commonCount": 18}, {"phase": 5, "levelCap": 80, "mora": 100000, "gemTier": 3, "gemCount": 6, "bossMat": 12, "specialty": 45, "commonTier": 3, "commonCount": 12}, {"phase": 6, "levelCap": 90, "mora": 120000, "gemTier": 4, "gemCount": 6, "bossMat": 20, "specialty": 60, "commonTier": 3, "commonCount": 24}], "talentLevels": [{"toLevel": 2, "mora": 12500, "bookTier": 1, "bookCount": 3, "commonTier": 1, "commonCount": 6, "weeklyBoss": 0, "crown": 0}, {"toLevel": 3, "mora": 17500, "bookTier": 2, "bookCount": 2, "commonTier": 2, "commonCount": 3, "weeklyBoss": 0, "crown": 0}, {"toLevel": 4, "mora": 25000, "bookTier": 2, "bookCount": 4, "commonTier": 2, "commonCount": 4, "weeklyBoss": 0, "crown": 0}, {"toLevel": 5, "mora": 30000, "bookTier": 2, "bookCount": 6, "commonTier": 2, "commonCount": 6, "weeklyBoss": 0, "crown": 0}, {"toLevel": 6, "mora": 37500, "bookTier": 2, "bookCount": 9, "commonTier": 2, "commonCount": 9, "weeklyBoss": 0, "crown": 0}, {"toLevel": 7, "mora": 120000, "bookTier": 3, "bookCount": 4, "commonTier": 3, "commonCount": 4, "weeklyBoss": 1, "crown": 0}, {"toLevel": 8, "mora": 260000, "bookTier": 3, "bookCount": 6, "commonTier": 3, "commonCount": 6, "weeklyBoss": 1, "crown": 0}, {"toLevel": 9, "mora": 450000, "bookTier": 3, "bookCount": 12, "commonTier": 3, "commonCount": 9, "weeklyBoss": 2, "crown": 0}, {"toLevel": 10, "mora": 700000, "bookTier": 3, "bookCount": 16, "commonTier": 3, "commonCount": 12, "weeklyBoss": 2, "crown": 1}], "weaponAscension": {"5": [{"phase": 1, "levelCap": 40, "mora": 10000, "domainTier": 1, "domainCount": 5, "eliteTier": 1, "eliteCount": 5, "commonTier": 1, "commonCount": 3}, {"phase": 2, "levelCap": 50, "mora": 20000, "domainTier": 2, "domainCount": 5, "eliteTier": 1, "eliteCount": 18, "commonTier": 1, "commonCount": 12}, {"phase": 3, "levelCap": 60, "mora": 30000, "domainTier": 2, "domainCount": 9, "eliteTier": 2, "eliteCount": 9, "commonTier": 2, "commonCount": 9}, {"phase": 4, "levelCap": 70, "mora": 45000, "domainTier": 3, "domainCount": 5, "eliteTier": 2, "eliteCount": 18, "commonTier": 2, "commonCount": 14}, {"phase": 5, "levelCap": 80, "mora": 55000, "domainTier": 3, "domainCount": 9, "eliteTier": 3, "eliteCount": 14, "commonTier": 3, "commonCount": 9}, {"phase": 6, "levelCap": 90, "mora": 65000, "domainTier": 4, "domainCount": 6, "eliteTier": 3, "eliteCount": 27, "commonTier": 3, "commonCount": 18}], "4": [{"phase": 1, "levelCap": 40, "mora": 5000, "domainTier": 1, "domainCount": 3, "eliteTier": 1, "eliteCount": 3, "commonTier": 1, "commonCount": 2}, {"phase": 2, "levelCap": 50, "mora": 15000, "domainTier": 2, "domainCount": 3, "eliteTier": 1, "eliteCount": 12, "commonTier": 1, "commonCount": 8}, {"phase": 3, "levelCap": 60, "mora": 20000, "domainTier": 2, "domainCount": 6, "eliteTier": 2, "eliteCount": 6, "commonTier": 2, "commonCount": 6}, {"phase": 4, "levelCap": 70, "mora": 30000, "domainTier": 3, "domainCount": 3, "eliteTier": 2, "eliteCount": 12, "commonTier": 2, "commonCount": 9}, {"phase": 5, "levelCap": 80, "mora": 35000, "domainTier": 3, "domainCount": 6, "eliteTier": 3, "eliteCount": 9, "commonTier": 3, "commonCount": 6}, {"phase": 6, "levelCap": 90, "mora": 45000, "domainTier": 4, "domainCount": 4, "eliteTier": 3, "eliteCount": 18, "commonTier": 3, "commonCount": 12}], "3": [{"phase": 1, "levelCap": 40, "mora": 5000, "domainTier": 1, "domainCount": 2, "eliteTier": 1, "eliteCount": 2, "commonTier": 1, "commonCount": 1}, {"phase": 2, "levelCap": 50, "mora": 10000, "domainTier": 2, "domainCount": 2, "eliteTier": 1, "eliteCount": 8, "commonTier": 1, "commonCount": 5}, {"phase": 3, "levelCap": 60, "mora": 15000, "domainTier": 2, "domainCount": 4, "eliteTier": 2, "eliteCount": 4, "commonTier": 2, "commonCount": 4}, {"phase": 4, "levelCap": 70, "mora": 20000, "domainTier": 3, "domainCount": 2, "eliteTier": 2, "eliteCount": 8, "commonTier": 2, "commonCount": 6}, {"phase": 5, "levelCap": 80, "mora": 25000, "domainTier": 3, "domainCount": 4, "eliteTier": 3, "eliteCount": 6, "commonTier": 3, "commonCount": 4}, {"phase": 6, "levelCap": 90, "mora": 30000, "domainTier": 4, "domainCount": 3, "eliteTier": 3, "eliteCount": 12, "commonTier": 3, "commonCount": 8}]}, "levelExp": {"characterCumulativeExp": {"1": 0, "20": 120175, "40": 698500, "50": 1277600, "60": 2131725, "70": 3327650, "80": 4939525, "90": 8362650}, "weaponCumulativeExp": {"5": {"1": 0, "20": 121350, "40": 755675, "50": 1396525, "60": 2335400, "70": 3638650, "80": 5377525, "90": 9064450}, "4": {"1": 0, "20": 80900, "40": 503800, "50": 931025, "60": 1556950, "70": 2425775, "80": 3585025, "90": 6042650}, "3": {"1": 0, "20": 53925, "40": 335875, "50": 620675, "60": 1037975, "70": 1617175, "80": 2390025, "90": 4028450}}}}, "characters": {"furina": {"id": "furina", "name": "Furina", "arName": "فورينا", "rarity": 5, "element": "Hydro", "weaponType": "Sword", "substat": "CRIT Rate", "tiers": {"gems": ["varunada_lazurite_sliver", "varunada_lazurite_fragment", "varunada_lazurite_chunk", "varunada_lazurite_gemstone"], "boss": "water_that_failed_to_transcend", "specialty": "lakelight_lily", "common": ["whopperflower_nectar", "shimmering_nectar", "energy_nectar"], "books": ["teachings_of_justice", "guide_to_justice", "philosophies_of_justice"], "weeklyBoss": "lightless_mass"}, "talentPriority": ["skill", "burst", "normal"], "recommendedWeapons": [{"weaponId": "splendor_of_tranquil_waters", "tag": "Best in Slot (5★)"}, {"weaponId": "festering_desire", "tag": "أفضل 4★ (Event)"}, {"weaponId": "fleuve_cendre_ferryman", "tag": "أفضل F2P (صيد)"}, {"weaponId": "favonius_sword", "tag": "طاقة للفريق (ER)"}], "recommendedArtifacts": [{"sets": [{"setId": "golden_troupe", "pieces": 4}], "note": "الأفضل بلا منازع: يرفع ضرر الـ Elemental Skill بنسبة 70% خارج الملعب."}, {"sets": [{"setId": "tenacity_of_the_millelith", "pieces": 4}], "note": "خيار داعم يرفع هجوم الفريق +20% ويزيد HP فورينا."}], "artifactStats": {"sands": ["HP%", "Energy Recharge"], "goblet": ["HP%", "Hydro DMG Bonus"], "circlet": ["CRIT Rate", "CRIT DMG"], "substats": ["Energy Recharge", "CRIT Rate / DMG", "HP%"], "breakpoints": "HP: 35,000-40,000 | ER: 180%-200% (Solo Hydro) أو 145%-165% (Double Hydro)"}}, "hu_tao": {"id": "hu_tao", "name": "Hu Tao", "arName": "هو تاو", "rarity": 5, "element": "Pyro", "weaponType": "Polearm", "substat": "CRIT DMG", "tiers": {"gems": ["agnidus_agate_sliver", "agnidus_agate_fragment", "agnidus_agate_chunk", "agnidus_agate_gemstone"], "boss": "juvenile_jade", "specialty": "silk_flower", "common": ["whopperflower_nectar", "shimmering_nectar", "energy_nectar"], "books": ["teachings_of_diligence", "guide_to_diligence", "philosophies_of_diligence"], "weeklyBoss": "shard_of_a_foul_legacy"}, "talentPriority": ["normal", "skill", "burst"], "recommendedWeapons": [{"weaponId": "staff_of_homa", "tag": "Best in Slot (5★)"}, {"weaponId": "staff_of_the_scarlet_sands", "tag": "5★ ممتاز مع الـ EM"}, {"weaponId": "dragons_bane", "tag": "أفضل 4★ (Vaporize)"}, {"weaponId": "deathmatch", "tag": "4★ (Battle Pass)"}], "recommendedArtifacts": [{"sets": [{"setId": "marechaussee_hunter", "pieces": 4}], "note": "الأقوى إذا كانت تلعب مع Furina في الفريق (+36% CRIT Rate)."}, {"sets": [{"setId": "crimson_witch_of_flames", "pieces": 4}], "note": "الأفضل في الفرق الكلاسيكية بدون Furina لرفع ضرر الـ Vaporize."}, {"sets": [{"setId": "shimenawas_reminiscence", "pieces": 4}], "note": "ضرر Charged Attack عالي جداً لكن يقلل استخدام الـ Burst."}], "artifactStats": {"sands": ["HP%", "Elemental Mastery"], "goblet": ["Pyro DMG Bonus"], "circlet": ["CRIT Rate", "CRIT DMG"], "substats": ["CRIT Rate / DMG", "Elemental Mastery (100-300)", "HP%"], "breakpoints": "EM: 200-300 | HP: 30,000+ | CRIT Ratio: 70/200+"}}, "neuvillette": {"id": "neuvillette", "name": "Neuvillette", "arName": "نوفيلت", "rarity": 5, "element": "Hydro", "weaponType": "Catalyst", "substat": "CRIT DMG", "tiers": {"gems": ["varunada_lazurite_sliver", "varunada_lazurite_fragment", "varunada_lazurite_chunk", "varunada_lazurite_gemstone"], "boss": "fontemer_unihorn", "specialty": "lumitoile", "common": ["transoceanic_pearl", "transoceanic_chunk", "xenochromatic_crystal"], "books": ["teachings_of_equity", "guide_to_equity", "philosophies_of_equity"], "weeklyBoss": "everamber"}, "talentPriority": ["normal", "burst", "skill"], "recommendedWeapons": [{"weaponId": "tome_of_the_eternal_flow", "tag": "Best in Slot (5★)"}, {"weaponId": "sacrificial_jade", "tag": "أفضل 4★ (BP)"}, {"weaponId": "prototype_amber", "tag": "أفضل F2P (حدادة + هيل)"}], "recommendedArtifacts": [{"sets": [{"setId": "marechaussee_hunter", "pieces": 4}], "note": "الأفضل بلا منازع: يعطي 36% CRIT Rate مجاني من تغير الـ HP."}], "artifactStats": {"sands": ["HP%"], "goblet": ["Hydro DMG Bonus", "HP%"], "circlet": ["CRIT DMG", "CRIT Rate"], "substats": ["CRIT DMG / Rate", "HP%", "Energy Recharge (115-130%)"], "breakpoints": "HP: 38,000-42,000 | CRIT Rate: 55-64% (تصل 90-100% بالباسيف)"}}, "arlecchino": {"id": "arlecchino", "name": "Arlecchino", "arName": "أرليكيبنو", "rarity": 5, "element": "Pyro", "weaponType": "Polearm", "substat": "CRIT DMG", "tiers": {"gems": ["agnidus_agate_sliver", "agnidus_agate_fragment", "agnidus_agate_chunk", "agnidus_agate_gemstone"], "boss": "fragment_of_a_golden_melody", "specialty": "rainbow_rose", "common": ["recruits_insignia", "sergeants_insignia", "lieutenants_insignia"], "books": ["teachings_of_order", "guide_to_order", "philosophies_of_order"], "weeklyBoss": "fading_candle"}, "talentPriority": ["normal", "skill", "burst"], "recommendedWeapons": [{"weaponId": "crimson_moons_semblance", "tag": "Best in Slot (5★)"}, {"weaponId": "staff_of_homa", "tag": "بديل 5★ قوي"}, {"weaponId": "deathmatch", "tag": "أفضل 4★"}, {"weaponId": "white_tassel", "tag": "أفضل 3★ F2P (صناديق ليويه)"}], "recommendedArtifacts": [{"sets": [{"setId": "fragment_of_harmonic_whimsy", "pieces": 4}], "note": "الأقوى خصيصاً لآلية Bond of Life (+54% DMG Bonus)."}, {"sets": [{"setId": "gladiators_finale", "pieces": 4}], "note": "بديل جاهز وقريب جداً في الضرر (+35% Normal Attack)."}], "artifactStats": {"sands": ["ATK%"], "goblet": ["Pyro DMG Bonus"], "circlet": ["CRIT Rate", "CRIT DMG"], "substats": ["CRIT Rate / DMG", "ATK%", "Elemental Mastery"], "breakpoints": "ATK: 2,000+ | CRIT Rate: 75%+ | ER: 100-115%"}}, "mavuika": {"id": "mavuika", "name": "Mavuika", "arName": "مافيكا", "rarity": 5, "element": "Pyro", "weaponType": "Claymore", "substat": "CRIT DMG", "tiers": {"gems": ["agnidus_agate_sliver", "agnidus_agate_fragment", "agnidus_agate_chunk", "agnidus_agate_gemstone"], "boss": "gold_inscribed_secret_source_core", "specialty": "withering_purpurbloom", "common": ["sentries_wooden_whistle", "warriors_metal_whistle", "saurian_crowned_warriors_golden_whistle"], "books": ["teachings_of_contention", "guide_to_contention", "philosophies_of_contention"], "weeklyBoss": "eroded_horn"}, "talentPriority": ["burst", "skill", "normal"], "recommendedWeapons": [{"weaponId": "a_thousand_blazing_suns", "tag": "Best in Slot (5★)"}, {"weaponId": "beacon_of_the_reed_sea", "tag": "بديل 5★ ممتاز"}, {"weaponId": "serpent_spine", "tag": "أفضل 4★ (BP)"}, {"weaponId": "tidal_shadow", "tag": "أفضل F2P (حدادة فونتين)"}], "recommendedArtifacts": [{"sets": [{"setId": "obsidian_codex", "pieces": 4}], "note": "الأفضل كـ Main DPS (+40% CRIT Rate أثناء Nightsoul)."}, {"sets": [{"setId": "scroll_of_the_hero_of_cinder_city", "pieces": 4}], "note": "الأفضل إذا لعبتها كـ Sub-DPS / Support للفريق."}], "artifactStats": {"sands": ["ATK%", "Elemental Mastery"], "goblet": ["Pyro DMG Bonus"], "circlet": ["CRIT DMG", "CRIT Rate"], "substats": ["CRIT DMG / Rate", "ATK%", "Elemental Mastery"], "breakpoints": "CRIT Rate: 50-60% (مع Obsidian تصل 90-100%) | EM: 150-250 في Melt/Vape"}}, "xilonen": {"id": "xilonen", "name": "Xilonen", "arName": "زيلونين", "rarity": 5, "element": "Geo", "weaponType": "Sword", "substat": "DEF%", "tiers": {"gems": ["prithiva_topaz_sliver", "prithiva_topaz_fragment", "prithiva_topaz_chunk", "prithiva_topaz_gemstone"], "boss": "gold_inscribed_secret_source_core", "specialty": "withering_purpurbloom", "common": ["sentries_wooden_whistle", "warriors_metal_whistle", "saurian_crowned_warriors_golden_whistle"], "books": ["teachings_of_contention", "guide_to_contention", "philosophies_of_contention"], "weeklyBoss": "eroded_horn"}, "talentPriority": ["skill", "burst", "normal"], "recommendedWeapons": [{"weaponId": "peak_patrol_song", "tag": "Best in Slot (5★)"}, {"weaponId": "favonius_sword", "tag": "أفضل 4★ (طاقة للفريق)"}, {"weaponId": "flute_of_ezpitzal", "tag": "أفضل F2P (حدادة ناتلان)"}], "recommendedArtifacts": [{"sets": [{"setId": "scroll_of_the_hero_of_cinder_city", "pieces": 4}], "note": "أساسي: يعطي +40% Elemental DMG Bonus للفريق كله."}], "artifactStats": {"sands": ["DEF%", "Energy Recharge"], "goblet": ["DEF%"], "circlet": ["DEF%", "Healing Bonus", "CRIT Rate (مع Favonius)"], "substats": ["Energy Recharge", "DEF%", "CRIT Rate"], "breakpoints": "DEF: 3,200+ (للوصول للحد الأقصى لباف السلاح) | ER: 160-180%"}}, "kaedehara_kazuha": {"id": "kaedehara_kazuha", "name": "Kaedehara Kazuha", "arName": "كازوها", "rarity": 5, "element": "Anemo", "weaponType": "Sword", "substat": "Elemental Mastery", "tiers": {"gems": ["vayuda_turquoise_sliver", "vayuda_turquoise_fragment", "vayuda_turquoise_chunk", "vayuda_turquoise_gemstone"], "boss": "marionette_core", "specialty": "sea_ganoderma", "common": ["treasure_hoarder_insignia", "silver_raven_insignia", "golden_raven_insignia"], "books": ["teachings_of_diligence", "guide_to_diligence", "philosophies_of_diligence"], "weeklyBoss": "gilded_scale"}, "talentPriority": ["burst", "skill", "normal"], "recommendedWeapons": [{"weaponId": "freedom_sworn", "tag": "Best in Slot (5★)"}, {"weaponId": "favonius_sword", "tag": "أفضل 4★ عملي (طاقة)"}, {"weaponId": "xiphos_moonlight", "tag": "4★ ممتاز (EM + ER)"}, {"weaponId": "iron_sting", "tag": "أفضل F2P (حدادة)"}], "recommendedArtifacts": [{"sets": [{"setId": "viridescent_venerer", "pieces": 4}], "note": "إلزامي: يقلل مقاومة الأعداء للعناصر بنسبة 40%."}], "artifactStats": {"sands": ["Elemental Mastery", "Energy Recharge"], "goblet": ["Elemental Mastery"], "circlet": ["Elemental Mastery"], "substats": ["Energy Recharge", "Elemental Mastery", "CRIT Rate (مع Favonius)"], "breakpoints": "EM: 850-1,000 | ER: 160-190%"}}, "nahida": {"id": "nahida", "name": "Nahida", "arName": "ناهيدا", "rarity": 5, "element": "Dendro", "weaponType": "Catalyst", "substat": "Elemental Mastery", "tiers": {"gems": ["nagadus_emerald_sliver", "nagadus_emerald_fragment", "nagadus_emerald_chunk", "nagadus_emerald_gemstone"], "boss": "quelled_creeper", "specialty": "kalpalata_lotus", "common": ["fungal_spores", "luminescent_pollen", "crystalline_cyst_dust"], "books": ["teachings_of_ingenuity", "guide_to_ingenuity", "philosophies_of_ingenuity"], "weeklyBoss": "puppet_strings"}, "talentPriority": ["skill", "burst", "normal"], "recommendedWeapons": [{"weaponId": "a_thousand_floating_dreams", "tag": "Best in Slot (5★)"}, {"weaponId": "kaguras_verity", "tag": "5★ ممتاز للضرر"}, {"weaponId": "sacrificial_fragments", "tag": "أفضل 4★ (EM عالي)"}, {"weaponId": "magic_guide", "tag": "أفضل 3★ F2P"}], "recommendedArtifacts": [{"sets": [{"setId": "deepwood_memories", "pieces": 4}], "note": "الأفضل في فرق الدندرو لتقليل مقاومة Dendro بنسبة 30%."}, {"sets": [{"setId": "gilded_dreams", "pieces": 4}], "note": "إذا كان هناك شخصية أخرى في الفريق ترتدي Deepwood."}], "artifactStats": {"sands": ["Elemental Mastery"], "goblet": ["Elemental Mastery", "Dendro DMG Bonus"], "circlet": ["Elemental Mastery", "CRIT Rate / DMG"], "substats": ["Elemental Mastery", "CRIT Rate / DMG", "Energy Recharge"], "breakpoints": "EM: 800-1,000 | ER: 120-140%"}}, "raiden_shogun": {"id": "raiden_shogun", "name": "Raiden Shogun", "arName": "رايدن شوجن", "rarity": 5, "element": "Electro", "weaponType": "Polearm", "substat": "Energy Recharge", "tiers": {"gems": ["vajrada_amethyst_sliver", "vajrada_amethyst_fragment", "vajrada_amethyst_chunk", "vajrada_amethyst_gemstone"], "boss": "storm_beads", "specialty": "amakumo_fruit", "common": ["old_handguard", "kageuchi_handguard", "famed_handguard"], "books": ["teachings_of_light", "guide_to_light", "philosophies_of_light"], "weeklyBoss": "molten_moment"}, "talentPriority": ["burst", "skill", "normal"], "recommendedWeapons": [{"weaponId": "engulfing_lightning", "tag": "Best in Slot (5★)"}, {"weaponId": "staff_of_homa", "tag": "بديل 5★ قوي"}, {"weaponId": "the_catch", "tag": "أفضل F2P (صيد إينازوما R5)"}], "recommendedArtifacts": [{"sets": [{"setId": "emblem_of_severed_fate", "pieces": 4}], "note": "الأفضل بلا منازع: يحول الـ Energy Recharge لضرر Burst يصل +75%."}, {"sets": [{"setId": "flower_of_paradise_lost", "pieces": 4}], "note": "فقط في فرق Hyperbloom بـ Full EM."}], "artifactStats": {"sands": ["Energy Recharge", "ATK%"], "goblet": ["Electro DMG Bonus", "ATK%"], "circlet": ["CRIT Rate", "CRIT DMG"], "substats": ["CRIT Rate / DMG", "Energy Recharge", "ATK%"], "breakpoints": "ER: 220-250% (أو 270% مع Engulfing) | CRIT Ratio: 65/140+"}}, "bennett": {"id": "bennett", "name": "Bennett", "arName": "بينيت", "rarity": 4, "element": "Pyro", "weaponType": "Sword", "substat": "Energy Recharge", "tiers": {"gems": ["agnidus_agate_sliver", "agnidus_agate_fragment", "agnidus_agate_chunk", "agnidus_agate_gemstone"], "boss": "everflame_seed", "specialty": "windwheel_aster", "common": ["treasure_hoarder_insignia", "silver_raven_insignia", "golden_raven_insignia"], "books": ["teachings_of_resistance", "guide_to_resistance", "philosophies_of_resistance"], "weeklyBoss": "dvalins_plume"}, "talentPriority": ["burst", "skill", "normal"], "recommendedWeapons": [{"weaponId": "mistsplitter_reforged", "tag": "أعلى Base ATK (674)"}, {"weaponId": "aquila_favonia", "tag": "أعلى Base ATK (674)"}, {"weaponId": "skyward_blade", "tag": "5★ ممتاز (Base ATK 608 + ER)"}, {"weaponId": "the_alley_flash", "tag": "أعلى 4★ Base ATK (620)"}, {"weaponId": "sapwood_blade", "tag": "أفضل 4★ F2P (حدادة سوميرو)"}], "recommendedArtifacts": [{"sets": [{"setId": "noblesse_oblige", "pieces": 4}], "note": "الأفضل دائماً: يضيف +20% ATK للفريق فوق باف الـ Burst."}], "artifactStats": {"sands": ["Energy Recharge"], "goblet": ["HP%"], "circlet": ["Healing Bonus", "HP%"], "substats": ["Energy Recharge", "HP%"], "breakpoints": "ER: 220%-260% | Base ATK: أعلى ما يمكن (السلاح لفل 90 مهم جداً)"}}}, "weapons": {"splendor_of_tranquil_waters": {"id": "splendor_of_tranquil_waters", "name": "Splendor of Tranquil Waters", "rarity": 5, "type": "Sword", "substat": "CRIT DMG", "substatVal90": "88.2%", "tiers": {"domain": ["dross_of_pure_sacred_dewdrop", "sublimation_of_pure_sacred_dewdrop", "spring_of_pure_sacred_dewdrop", "essence_of_pure_sacred_dewdrop"], "elite": ["drop_of_tainted_water", "scoop_of_tainted_water", "newborn_tainted_hydro_phantasm"], "common": ["transoceanic_pearl", "transoceanic_chunk", "xenochromatic_crystal"]}}, "fleuve_cendre_ferryman": {"id": "fleuve_cendre_ferryman", "name": "Fleuve Cendre Ferryman", "rarity": 4, "type": "Sword", "substat": "Energy Recharge", "substatVal90": "45.9%", "tiers": {"domain": ["dross_of_pure_sacred_dewdrop", "sublimation_of_pure_sacred_dewdrop", "spring_of_pure_sacred_dewdrop", "essence_of_pure_sacred_dewdrop"], "elite": ["drop_of_tainted_water", "scoop_of_tainted_water", "newborn_tainted_hydro_phantasm"], "common": ["transoceanic_pearl", "transoceanic_chunk", "xenochromatic_crystal"]}}, "favonius_sword": {"id": "favonius_sword", "name": "Favonius Sword", "rarity": 4, "type": "Sword", "substat": "Energy Recharge", "substatVal90": "61.3%", "tiers": {"domain": ["grain_of_aerosiderite", "piece_of_aerosiderite", "bit_of_aerosiderite", "chunk_of_aerosiderite"], "elite": ["dead_ley_line_branch", "dead_ley_line_leaves", "ley_line_sprout"], "common": ["whopperflower_nectar", "shimmering_nectar", "energy_nectar"]}}, "festering_desire": {"id": "festering_desire", "name": "Festering Desire", "rarity": 4, "type": "Sword", "substat": "Energy Recharge", "substatVal90": "45.9%", "tiers": {"domain": ["grain_of_aerosiderite", "piece_of_aerosiderite", "bit_of_aerosiderite", "chunk_of_aerosiderite"], "elite": ["dead_ley_line_branch", "dead_ley_line_leaves", "ley_line_sprout"], "common": ["recruits_insignia", "sergeants_insignia", "lieutenants_insignia"]}}, "peak_patrol_song": {"id": "peak_patrol_song", "name": "Peak Patrol Song", "rarity": 5, "type": "Sword", "substat": "DEF%", "substatVal90": "82.7%", "tiers": {"domain": ["blazing_sacrificial_hearts_terror", "blazing_sacrificial_hearts_hesitance", "blazing_sacrificial_hearts_resolve", "blazing_sacrificial_hearts_splendor"], "elite": ["shard_of_a_shattered_will", "locus_of_a_clear_will", "sigil_of_a_striding_will"], "common": ["sentries_wooden_whistle", "warriors_metal_whistle", "saurian_crowned_warriors_golden_whistle"]}}, "freedom_sworn": {"id": "freedom_sworn", "name": "Freedom-Sworn", "rarity": 5, "type": "Sword", "substat": "Elemental Mastery", "substatVal90": "198", "tiers": {"domain": ["grain_of_aerosiderite", "piece_of_aerosiderite", "bit_of_aerosiderite", "chunk_of_aerosiderite"], "elite": ["dead_ley_line_branch", "dead_ley_line_leaves", "ley_line_sprout"], "common": ["treasure_hoarder_insignia", "silver_raven_insignia", "golden_raven_insignia"]}}, "staff_of_homa": {"id": "staff_of_homa", "name": "Staff of Homa", "rarity": 5, "type": "Polearm", "substat": "CRIT DMG", "substatVal90": "66.2%", "tiers": {"domain": ["grain_of_aerosiderite", "piece_of_aerosiderite", "bit_of_aerosiderite", "chunk_of_aerosiderite"], "elite": ["dead_ley_line_branch", "dead_ley_line_leaves", "ley_line_sprout"], "common": ["whopperflower_nectar", "shimmering_nectar", "energy_nectar"]}}, "dragons_bane": {"id": "dragons_bane", "name": "Dragon's Bane", "rarity": 4, "type": "Polearm", "substat": "Elemental Mastery", "substatVal90": "221", "tiers": {"domain": ["grain_of_aerosiderite", "piece_of_aerosiderite", "bit_of_aerosiderite", "chunk_of_aerosiderite"], "elite": ["dead_ley_line_branch", "dead_ley_line_leaves", "ley_line_sprout"], "common": ["treasure_hoarder_insignia", "silver_raven_insignia", "golden_raven_insignia"]}}, "crimson_moons_semblance": {"id": "crimson_moons_semblance", "name": "Crimson Moon's Semblance", "rarity": 5, "type": "Polearm", "substat": "CRIT Rate", "substatVal90": "22.1%", "tiers": {"domain": ["dross_of_pure_sacred_dewdrop", "sublimation_of_pure_sacred_dewdrop", "spring_of_pure_sacred_dewdrop", "essence_of_pure_sacred_dewdrop"], "elite": ["drop_of_tainted_water", "scoop_of_tainted_water", "newborn_tainted_hydro_phantasm"], "common": ["recruits_insignia", "sergeants_insignia", "lieutenants_insignia"]}}, "the_catch": {"id": "the_catch", "name": "\"The Catch\"", "rarity": 4, "type": "Polearm", "substat": "Energy Recharge", "substatVal90": "45.9%", "tiers": {"domain": ["grain_of_aerosiderite", "piece_of_aerosiderite", "bit_of_aerosiderite", "chunk_of_aerosiderite"], "elite": ["dead_ley_line_branch", "dead_ley_line_leaves", "ley_line_sprout"], "common": ["old_handguard", "kageuchi_handguard", "famed_handguard"]}}, "engulfing_lightning": {"id": "engulfing_lightning", "name": "Engulfing Lightning", "rarity": 5, "type": "Polearm", "substat": "Energy Recharge", "substatVal90": "55.1%", "tiers": {"domain": ["grain_of_aerosiderite", "piece_of_aerosiderite", "bit_of_aerosiderite", "chunk_of_aerosiderite"], "elite": ["dead_ley_line_branch", "dead_ley_line_leaves", "ley_line_sprout"], "common": ["old_handguard", "kageuchi_handguard", "famed_handguard"]}}, "tome_of_the_eternal_flow": {"id": "tome_of_the_eternal_flow", "name": "Tome of the Eternal Flow", "rarity": 5, "type": "Catalyst", "substat": "CRIT DMG", "substatVal90": "88.2%", "tiers": {"domain": ["dross_of_pure_sacred_dewdrop", "sublimation_of_pure_sacred_dewdrop", "spring_of_pure_sacred_dewdrop", "essence_of_pure_sacred_dewdrop"], "elite": ["drop_of_tainted_water", "scoop_of_tainted_water", "newborn_tainted_hydro_phantasm"], "common": ["transoceanic_pearl", "transoceanic_chunk", "xenochromatic_crystal"]}}, "prototype_amber": {"id": "prototype_amber", "name": "Prototype Amber", "rarity": 4, "type": "Catalyst", "substat": "HP%", "substatVal90": "41.3%", "tiers": {"domain": ["grain_of_aerosiderite", "piece_of_aerosiderite", "bit_of_aerosiderite", "chunk_of_aerosiderite"], "elite": ["dead_ley_line_branch", "dead_ley_line_leaves", "ley_line_sprout"], "common": ["treasure_hoarder_insignia", "silver_raven_insignia", "golden_raven_insignia"]}}, "a_thousand_floating_dreams": {"id": "a_thousand_floating_dreams", "name": "A Thousand Floating Dreams", "rarity": 5, "type": "Catalyst", "substat": "Elemental Mastery", "substatVal90": "265", "tiers": {"domain": ["dross_of_pure_sacred_dewdrop", "sublimation_of_pure_sacred_dewdrop", "spring_of_pure_sacred_dewdrop", "essence_of_pure_sacred_dewdrop"], "elite": ["dead_ley_line_branch", "dead_ley_line_leaves", "ley_line_sprout"], "common": ["fungal_spores", "luminescent_pollen", "crystalline_cyst_dust"]}}, "sacrificial_fragments": {"id": "sacrificial_fragments", "name": "Sacrificial Fragments", "rarity": 4, "type": "Catalyst", "substat": "Elemental Mastery", "substatVal90": "221", "tiers": {"domain": ["grain_of_aerosiderite", "piece_of_aerosiderite", "bit_of_aerosiderite", "chunk_of_aerosiderite"], "elite": ["dead_ley_line_branch", "dead_ley_line_leaves", "ley_line_sprout"], "common": ["treasure_hoarder_insignia", "silver_raven_insignia", "golden_raven_insignia"]}}, "a_thousand_blazing_suns": {"id": "a_thousand_blazing_suns", "name": "A Thousand Blazing Suns", "rarity": 5, "type": "Claymore", "substat": "CRIT Rate", "substatVal90": "11.0%", "tiers": {"domain": ["blazing_sacrificial_hearts_terror", "blazing_sacrificial_hearts_hesitance", "blazing_sacrificial_hearts_resolve", "blazing_sacrificial_hearts_splendor"], "elite": ["shard_of_a_shattered_will", "locus_of_a_clear_will", "sigil_of_a_striding_will"], "common": ["sentries_wooden_whistle", "warriors_metal_whistle", "saurian_crowned_warriors_golden_whistle"]}}, "serpent_spine": {"id": "serpent_spine", "name": "Serpent Spine", "rarity": 4, "type": "Claymore", "substat": "CRIT Rate", "substatVal90": "27.6%", "tiers": {"domain": ["grain_of_aerosiderite", "piece_of_aerosiderite", "bit_of_aerosiderite", "chunk_of_aerosiderite"], "elite": ["dead_ley_line_branch", "dead_ley_line_leaves", "ley_line_sprout"], "common": ["whopperflower_nectar", "shimmering_nectar", "energy_nectar"]}}}, "artifacts": {"golden_troupe": {"id": "golden_troupe", "name": "Golden Troupe", "rarityList": [4, 5], "twoPiece": "يرفع ضرر الـ Elemental Skill بنسبة 20%.", "fourPiece": "يرفع ضرر الـ Elemental Skill بنسبة 25%، ويزداد 25% إضافية عندما تكون الشخصية خارج الملعب."}, "marechaussee_hunter": {"id": "marechaussee_hunter", "name": "Marechaussee Hunter", "rarityList": [4, 5], "twoPiece": "يرفع ضرر Normal و Charged Attack بنسبة 15%.", "fourPiece": "عندما يزيد أو ينقص HP الشخصية، يزداد CRIT Rate بنسبة 12% لمدة 5 ثواني (بحد أقصى 3 ستاك = 36%)."}, "crimson_witch_of_flames": {"id": "crimson_witch_of_flames", "name": "Crimson Witch of Flames", "rarityList": [4, 5], "twoPiece": "يعطي +15% Pyro DMG Bonus.", "fourPiece": "يرفع ضرر Overloaded/Burning بنسبة 40% و Vaporize/Melt بنسبة 15%."}, "fragment_of_harmonic_whimsy": {"id": "fragment_of_harmonic_whimsy", "name": "Fragment of Harmonic Whimsy", "rarityList": [4, 5], "twoPiece": "يرفع ATK بنسبة 18%.", "fourPiece": "عند تغير قيمة Bond of Life، يزداد الضرر بنسبة 18% لمدة 6 ثواني (بحد أقصى 3 ستاك = 54%)."}, "obsidian_codex": {"id": "obsidian_codex", "name": "Obsidian Codex", "rarityList": [4, 5], "twoPiece": "يرفع الضرر بنسبة 15% أثناء حالة Nightsoul's Blessing.", "fourPiece": "عند استهلاك نقاط Nightsoul في الملعب، يزداد CRIT Rate بنسبة 40% لمدة 6 ثواني."}, "scroll_of_the_hero_of_cinder_city": {"id": "scroll_of_the_hero_of_cinder_city", "name": "Scroll of the Hero of Cinder City", "rarityList": [4, 5], "twoPiece": "يسترجع 6 Energy عند تفعيل Nightsoul Burst.", "fourPiece": "يعطي +12% Elemental DMG Bonus للفريق (و +28% إضافية في حالة Nightsoul = 40% إجمالي)."}, "viridescent_venerer": {"id": "viridescent_venerer", "name": "Viridescent Venerer", "rarityList": [4, 5], "twoPiece": "يعطي +15% Anemo DMG Bonus.", "fourPiece": "يرفع ضرر Swirl بنسبة 60% ويقلل مقاومة الأعداء للعنصر المدموج بنسبة 40%."}, "deepwood_memories": {"id": "deepwood_memories", "name": "Deepwood Memories", "rarityList": [4, 5], "twoPiece": "يعطي +15% Dendro DMG Bonus.", "fourPiece": "عند إصابة عدو بـ Skill أو Burst، تقل مقاومة Dendro للأعداء بنسبة 30% لمدة 8 ثواني."}, "emblem_of_severed_fate": {"id": "emblem_of_severed_fate", "name": "Emblem of Severed Fate", "rarityList": [4, 5], "twoPiece": "يرفع Energy Recharge بنسبة 20%.", "fourPiece": "يرفع ضرر Elemental Burst بمقدار 25% من قيمة Energy Recharge (بحد أقصى 75%)."}, "noblesse_oblige": {"id": "noblesse_oblige", "name": "Noblesse Oblige", "rarityList": [4, 5], "twoPiece": "يرفع ضرر Elemental Burst بنسبة 20%.", "fourPiece": "بعد استخدام Burst، يزداد ATK جميع أعضاء الفريق بنسبة 20% لمدة 12 ثانية."}, "tenacity_of_the_millelith": {"id": "tenacity_of_the_millelith", "name": "Tenacity of the Millelith", "rarityList": [4, 5], "twoPiece": "يرفع HP بنسبة 20%.", "fourPiece": "عند إصابة عدو بـ Skill، يزداد ATK الفريق بنسبة 20% وقوة الدرع 30%."}, "gladiators_finale": {"id": "gladiators_finale", "name": "Gladiator's Finale", "rarityList": [4, 5], "twoPiece": "يرفع ATK بنسبة 18%.", "fourPiece": "يرفع ضرر Normal Attack بنسبة 35% لمستخدمي Sword / Claymore / Polearm."}, "gilded_dreams": {"id": "gilded_dreams", "name": "Gilded Dreams", "rarityList": [4, 5], "twoPiece": "يرفع Elemental Mastery بمقدار 80.", "fourPiece": "يعطي ATK% أو EM إضافي حسب عناصر أعضاء الفريق بعد تفعيل تفاعل عنصري."}, "shimenawas_reminiscence": {"id": "shimenawas_reminiscence", "name": "Shimenawa's Reminiscence", "rarityList": [4, 5], "twoPiece": "يرفع ATK بنسبة 18%.", "fourPiece": "يستهلك 15 Energy لرفع ضرر Normal/Charged/Plunge Attack بنسبة 50%."}}, "materials": {"mora": {"id": "mora", "name": "Mora", "arName": "مورا (Mora)", "rarity": 3, "category": "currency"}, "heros_wit": {"id": "heros_wit", "name": "Hero's Wit", "arName": "كتب خبرة Hero's Wit", "rarity": 4, "category": "exp"}, "mystic_enhancement_ore": {"id": "mystic_enhancement_ore", "name": "Mystic Enhancement Ore", "arName": "كريستال السلاح Mystic Ore", "rarity": 3, "category": "weapon_exp"}, "crown_of_insight": {"id": "crown_of_insight", "name": "Crown of Insight", "arName": "تاج التالنت Crown", "rarity": 5, "category": "crown"}, "varunada_lazurite_sliver": {"id": "varunada_lazurite_sliver", "name": "Varunada Lazurite Sliver", "rarity": 2, "category": "gem"}, "varunada_lazurite_fragment": {"id": "varunada_lazurite_fragment", "name": "Varunada Lazurite Fragment", "rarity": 3, "category": "gem"}, "varunada_lazurite_chunk": {"id": "varunada_lazurite_chunk", "name": "Varunada Lazurite Chunk", "rarity": 4, "category": "gem"}, "varunada_lazurite_gemstone": {"id": "varunada_lazurite_gemstone", "name": "Varunada Lazurite Gemstone", "rarity": 5, "category": "gem"}, "agnidus_agate_sliver": {"id": "agnidus_agate_sliver", "name": "Agnidus Agate Sliver", "rarity": 2, "category": "gem"}, "agnidus_agate_fragment": {"id": "agnidus_agate_fragment", "name": "Agnidus Agate Fragment", "rarity": 3, "category": "gem"}, "agnidus_agate_chunk": {"id": "agnidus_agate_chunk", "name": "Agnidus Agate Chunk", "rarity": 4, "category": "gem"}, "agnidus_agate_gemstone": {"id": "agnidus_agate_gemstone", "name": "Agnidus Agate Gemstone", "rarity": 5, "category": "gem"}, "vajrada_amethyst_sliver": {"id": "vajrada_amethyst_sliver", "name": "Vajrada Amethyst Sliver", "rarity": 2, "category": "gem"}, "vajrada_amethyst_fragment": {"id": "vajrada_amethyst_fragment", "name": "Vajrada Amethyst Fragment", "rarity": 3, "category": "gem"}, "vajrada_amethyst_chunk": {"id": "vajrada_amethyst_chunk", "name": "Vajrada Amethyst Chunk", "rarity": 4, "category": "gem"}, "vajrada_amethyst_gemstone": {"id": "vajrada_amethyst_gemstone", "name": "Vajrada Amethyst Gemstone", "rarity": 5, "category": "gem"}, "vayuda_turquoise_sliver": {"id": "vayuda_turquoise_sliver", "name": "Vayuda Turquoise Sliver", "rarity": 2, "category": "gem"}, "vayuda_turquoise_fragment": {"id": "vayuda_turquoise_fragment", "name": "Vayuda Turquoise Fragment", "rarity": 3, "category": "gem"}, "vayuda_turquoise_chunk": {"id": "vayuda_turquoise_chunk", "name": "Vayuda Turquoise Chunk", "rarity": 4, "category": "gem"}, "vayuda_turquoise_gemstone": {"id": "vayuda_turquoise_gemstone", "name": "Vayuda Turquoise Gemstone", "rarity": 5, "category": "gem"}, "nagadus_emerald_sliver": {"id": "nagadus_emerald_sliver", "name": "Nagadus Emerald Sliver", "rarity": 2, "category": "gem"}, "nagadus_emerald_fragment": {"id": "nagadus_emerald_fragment", "name": "Nagadus Emerald Fragment", "rarity": 3, "category": "gem"}, "nagadus_emerald_chunk": {"id": "nagadus_emerald_chunk", "name": "Nagadus Emerald Chunk", "rarity": 4, "category": "gem"}, "nagadus_emerald_gemstone": {"id": "nagadus_emerald_gemstone", "name": "Nagadus Emerald Gemstone", "rarity": 5, "category": "gem"}, "prithiva_topaz_sliver": {"id": "prithiva_topaz_sliver", "name": "Prithiva Topaz Sliver", "rarity": 2, "category": "gem"}, "prithiva_topaz_fragment": {"id": "prithiva_topaz_fragment", "name": "Prithiva Topaz Fragment", "rarity": 3, "category": "gem"}, "prithiva_topaz_chunk": {"id": "prithiva_topaz_chunk", "name": "Prithiva Topaz Chunk", "rarity": 4, "category": "gem"}, "prithiva_topaz_gemstone": {"id": "prithiva_topaz_gemstone", "name": "Prithiva Topaz Gemstone", "rarity": 5, "category": "gem"}, "water_that_failed_to_transcend": {"id": "water_that_failed_to_transcend", "name": "Water That Failed To Transcend", "rarity": 4, "category": "boss"}, "lakelight_lily": {"id": "lakelight_lily", "name": "Lakelight Lily", "rarity": 1, "category": "specialty"}, "lightless_mass": {"id": "lightless_mass", "name": "Lightless Mass", "rarity": 5, "category": "weekly"}, "juvenile_jade": {"id": "juvenile_jade", "name": "Juvenile Jade", "rarity": 4, "category": "boss"}, "silk_flower": {"id": "silk_flower", "name": "Silk Flower", "rarity": 1, "category": "specialty"}, "shard_of_a_foul_legacy": {"id": "shard_of_a_foul_legacy", "name": "Shard of a Foul Legacy", "rarity": 5, "category": "weekly"}, "fontemer_unihorn": {"id": "fontemer_unihorn", "name": "Fontemer Unihorn", "rarity": 4, "category": "boss"}, "lumitoile": {"id": "lumitoile", "name": "Lumitoile", "rarity": 1, "category": "specialty"}, "everamber": {"id": "everamber", "name": "Everamber", "rarity": 5, "category": "weekly"}, "fragment_of_a_golden_melody": {"id": "fragment_of_a_golden_melody", "name": "Fragment of a Golden Melody", "rarity": 4, "category": "boss"}, "rainbow_rose": {"id": "rainbow_rose", "name": "Rainbow Rose", "rarity": 1, "category": "specialty"}, "fading_candle": {"id": "fading_candle", "name": "Fading Candle", "rarity": 5, "category": "weekly"}, "gold_inscribed_secret_source_core": {"id": "gold_inscribed_secret_source_core", "name": "Gold-Inscribed Secret Source Core", "rarity": 4, "category": "boss"}, "withering_purpurbloom": {"id": "withering_purpurbloom", "name": "Withering Purpurbloom", "rarity": 1, "category": "specialty"}, "eroded_horn": {"id": "eroded_horn", "name": "Eroded Horn", "rarity": 5, "category": "weekly"}, "marionette_core": {"id": "marionette_core", "name": "Marionette Core", "rarity": 4, "category": "boss"}, "sea_ganoderma": {"id": "sea_ganoderma", "name": "Sea Ganoderma", "rarity": 1, "category": "specialty"}, "gilded_scale": {"id": "gilded_scale", "name": "Gilded Scale", "rarity": 5, "category": "weekly"}, "quelled_creeper": {"id": "quelled_creeper", "name": "Quelled Creeper", "rarity": 4, "category": "boss"}, "kalpalata_lotus": {"id": "kalpalata_lotus", "name": "Kalpalata Lotus", "rarity": 1, "category": "specialty"}, "puppet_strings": {"id": "puppet_strings", "name": "Puppet Strings", "rarity": 5, "category": "weekly"}, "storm_beads": {"id": "storm_beads", "name": "Storm Beads", "rarity": 4, "category": "boss"}, "amakumo_fruit": {"id": "amakumo_fruit", "name": "Amakumo Fruit", "rarity": 1, "category": "specialty"}, "molten_moment": {"id": "molten_moment", "name": "Molten Moment", "rarity": 5, "category": "weekly"}, "everflame_seed": {"id": "everflame_seed", "name": "Everflame Seed", "rarity": 4, "category": "boss"}, "windwheel_aster": {"id": "windwheel_aster", "name": "Windwheel Aster", "rarity": 1, "category": "specialty"}, "dvalins_plume": {"id": "dvalins_plume", "name": "Dvalin's Plume", "rarity": 5, "category": "weekly"}, "teachings_of_justice": {"id": "teachings_of_justice", "name": "Teachings of Justice", "rarity": 2, "days": ["Tuesday", "Friday", "Sunday"]}, "guide_to_justice": {"id": "guide_to_justice", "name": "Guide to Justice", "rarity": 3, "days": ["Tuesday", "Friday", "Sunday"]}, "philosophies_of_justice": {"id": "philosophies_of_justice", "name": "Philosophies of Justice", "rarity": 4, "days": ["Tuesday", "Friday", "Sunday"]}, "teachings_of_diligence": {"id": "teachings_of_diligence", "name": "Teachings of Diligence", "rarity": 2, "days": ["Tuesday", "Friday", "Sunday"]}, "guide_to_diligence": {"id": "guide_to_diligence", "name": "Guide to Diligence", "rarity": 3, "days": ["Tuesday", "Friday", "Sunday"]}, "philosophies_of_diligence": {"id": "philosophies_of_diligence", "name": "Philosophies of Diligence", "rarity": 4, "days": ["Tuesday", "Friday", "Sunday"]}, "teachings_of_equity": {"id": "teachings_of_equity", "name": "Teachings of Equity", "rarity": 2, "days": ["Monday", "Thursday", "Sunday"]}, "guide_to_equity": {"id": "guide_to_equity", "name": "Guide to Equity", "rarity": 3, "days": ["Monday", "Thursday", "Sunday"]}, "philosophies_of_equity": {"id": "philosophies_of_equity", "name": "Philosophies of Equity", "rarity": 4, "days": ["Monday", "Thursday", "Sunday"]}, "teachings_of_order": {"id": "teachings_of_order", "name": "Teachings of Order", "rarity": 2, "days": ["Wednesday", "Saturday", "Sunday"]}, "guide_to_order": {"id": "guide_to_order", "name": "Guide to Order", "rarity": 3, "days": ["Wednesday", "Saturday", "Sunday"]}, "philosophies_of_order": {"id": "philosophies_of_order", "name": "Philosophies of Order", "rarity": 4, "days": ["Wednesday", "Saturday", "Sunday"]}, "teachings_of_contention": {"id": "teachings_of_contention", "name": "Teachings of Contention", "rarity": 2, "days": ["Monday", "Thursday", "Sunday"]}, "guide_to_contention": {"id": "guide_to_contention", "name": "Guide to Contention", "rarity": 3, "days": ["Monday", "Thursday", "Sunday"]}, "philosophies_of_contention": {"id": "philosophies_of_contention", "name": "Philosophies of Contention", "rarity": 4, "days": ["Monday", "Thursday", "Sunday"]}, "teachings_of_ingenuity": {"id": "teachings_of_ingenuity", "name": "Teachings of Ingenuity", "rarity": 2, "days": ["Tuesday", "Friday", "Sunday"]}, "guide_to_ingenuity": {"id": "guide_to_ingenuity", "name": "Guide to Ingenuity", "rarity": 3, "days": ["Tuesday", "Friday", "Sunday"]}, "philosophies_of_ingenuity": {"id": "philosophies_of_ingenuity", "name": "Philosophies of Ingenuity", "rarity": 4, "days": ["Tuesday", "Friday", "Sunday"]}, "teachings_of_light": {"id": "teachings_of_light", "name": "Teachings of Light", "rarity": 2, "days": ["Wednesday", "Saturday", "Sunday"]}, "guide_to_light": {"id": "guide_to_light", "name": "Guide to Light", "rarity": 3, "days": ["Wednesday", "Saturday", "Sunday"]}, "philosophies_of_light": {"id": "philosophies_of_light", "name": "Philosophies of Light", "rarity": 4, "days": ["Wednesday", "Saturday", "Sunday"]}, "teachings_of_resistance": {"id": "teachings_of_resistance", "name": "Teachings of Resistance", "rarity": 2, "days": ["Tuesday", "Friday", "Sunday"]}, "guide_to_resistance": {"id": "guide_to_resistance", "name": "Guide to Resistance", "rarity": 3, "days": ["Tuesday", "Friday", "Sunday"]}, "philosophies_of_resistance": {"id": "philosophies_of_resistance", "name": "Philosophies of Resistance", "rarity": 4, "days": ["Tuesday", "Friday", "Sunday"]}, "whopperflower_nectar": {"id": "whopperflower_nectar", "name": "Whopperflower Nectar", "rarity": 1}, "shimmering_nectar": {"id": "shimmering_nectar", "name": "Shimmering Nectar", "rarity": 2}, "energy_nectar": {"id": "energy_nectar", "name": "Energy Nectar", "rarity": 3}, "transoceanic_pearl": {"id": "transoceanic_pearl", "name": "Transoceanic Pearl", "rarity": 1}, "transoceanic_chunk": {"id": "transoceanic_chunk", "name": "Transoceanic Chunk", "rarity": 2}, "xenochromatic_crystal": {"id": "xenochromatic_crystal", "name": "Xenochromatic Crystal", "rarity": 3}, "recruits_insignia": {"id": "recruits_insignia", "name": "Recruit's Insignia", "rarity": 1}, "sergeants_insignia": {"id": "sergeants_insignia", "name": "Sergeant's Insignia", "rarity": 2}, "lieutenants_insignia": {"id": "lieutenants_insignia", "name": "Lieutenant's Insignia", "rarity": 3}, "sentries_wooden_whistle": {"id": "sentries_wooden_whistle", "name": "Sentry's Wooden Whistle", "rarity": 1}, "warriors_metal_whistle": {"id": "warriors_metal_whistle", "name": "Warrior's Metal Whistle", "rarity": 2}, "saurian_crowned_warriors_golden_whistle": {"id": "saurian_crowned_warriors_golden_whistle", "name": "Saurian-Crowned Warrior's Golden Whistle", "rarity": 3}, "treasure_hoarder_insignia": {"id": "treasure_hoarder_insignia", "name": "Treasure Hoarder Insignia", "rarity": 1}, "silver_raven_insignia": {"id": "silver_raven_insignia", "name": "Silver Raven Insignia", "rarity": 2}, "golden_raven_insignia": {"id": "golden_raven_insignia", "name": "Golden Raven Insignia", "rarity": 3}, "fungal_spores": {"id": "fungal_spores", "name": "Fungal Spores", "rarity": 1}, "luminescent_pollen": {"id": "luminescent_pollen", "name": "Luminescent Pollen", "rarity": 2}, "crystalline_cyst_dust": {"id": "crystalline_cyst_dust", "name": "Crystalline Cyst Dust", "rarity": 3}, "old_handguard": {"id": "old_handguard", "name": "Old Handguard", "rarity": 1}, "kageuchi_handguard": {"id": "kageuchi_handguard", "name": "Kageuchi Handguard", "rarity": 2}, "famed_handguard": {"id": "famed_handguard", "name": "Famed Handguard", "rarity": 3}, "dross_of_pure_sacred_dewdrop": {"id": "dross_of_pure_sacred_dewdrop", "name": "Dross of Pure Sacred Dewdrop", "rarity": 2, "days": ["Tuesday", "Friday", "Sunday"]}, "sublimation_of_pure_sacred_dewdrop": {"id": "sublimation_of_pure_sacred_dewdrop", "name": "Sublimation of Pure Sacred Dewdrop", "rarity": 3, "days": ["Tuesday", "Friday", "Sunday"]}, "spring_of_pure_sacred_dewdrop": {"id": "spring_of_pure_sacred_dewdrop", "name": "Spring of Pure Sacred Dewdrop", "rarity": 4, "days": ["Tuesday", "Friday", "Sunday"]}, "essence_of_pure_sacred_dewdrop": {"id": "essence_of_pure_sacred_dewdrop", "name": "Essence of Pure Sacred Dewdrop", "rarity": 5, "days": ["Tuesday", "Friday", "Sunday"]}, "drop_of_tainted_water": {"id": "drop_of_tainted_water", "name": "Drop of Tainted Water", "rarity": 2}, "scoop_of_tainted_water": {"id": "scoop_of_tainted_water", "name": "Scoop of Tainted Water", "rarity": 3}, "newborn_tainted_hydro_phantasm": {"id": "newborn_tainted_hydro_phantasm", "name": "Newborn Tainted Hydro Phantasm", "rarity": 4}, "grain_of_aerosiderite": {"id": "grain_of_aerosiderite", "name": "Grain of Aerosiderite", "rarity": 2, "days": ["Wednesday", "Saturday", "Sunday"]}, "piece_of_aerosiderite": {"id": "piece_of_aerosiderite", "name": "Piece of Aerosiderite", "rarity": 3, "days": ["Wednesday", "Saturday", "Sunday"]}, "bit_of_aerosiderite": {"id": "bit_of_aerosiderite", "name": "Bit of Aerosiderite", "rarity": 4, "days": ["Wednesday", "Saturday", "Sunday"]}, "chunk_of_aerosiderite": {"id": "chunk_of_aerosiderite", "name": "Chunk of Aerosiderite", "rarity": 5, "days": ["Wednesday", "Saturday", "Sunday"]}, "dead_ley_line_branch": {"id": "dead_ley_line_branch", "name": "Dead Ley Line Branch", "rarity": 2}, "dead_ley_line_leaves": {"id": "dead_ley_line_leaves", "name": "Dead Ley Line Leaves", "rarity": 3}, "ley_line_sprout": {"id": "ley_line_sprout", "name": "Ley Line Sprout", "rarity": 4}, "blazing_sacrificial_hearts_terror": {"id": "blazing_sacrificial_hearts_terror", "name": "Blazing Sacrificial Heart's Terror", "rarity": 2, "days": ["Monday", "Thursday", "Sunday"]}, "blazing_sacrificial_hearts_hesitance": {"id": "blazing_sacrificial_hearts_hesitance", "name": "Blazing Sacrificial Heart's Hesitance", "rarity": 3, "days": ["Monday", "Thursday", "Sunday"]}, "blazing_sacrificial_hearts_resolve": {"id": "blazing_sacrificial_hearts_resolve", "name": "Blazing Sacrificial Heart's Resolve", "rarity": 4, "days": ["Monday", "Thursday", "Sunday"]}, "blazing_sacrificial_hearts_splendor": {"id": "blazing_sacrificial_hearts_splendor", "name": "Blazing Sacrificial Heart's Splendor", "rarity": 5, "days": ["Monday", "Thursday", "Sunday"]}, "shard_of_a_shattered_will": {"id": "shard_of_a_shattered_will", "name": "Shard of a Shattered Will", "rarity": 2}, "locus_of_a_clear_will": {"id": "locus_of_a_clear_will", "name": "Locus of a Clear Will", "rarity": 3}, "sigil_of_a_striding_will": {"id": "sigil_of_a_striding_will", "name": "Sigil of a Striding Will", "rarity": 4}}}</script>
+
+<script>
+const TASKS=[["c1","كوميشن 1"],["c2","كوميشن 2"],["c3","كوميشن 3"],["c4","كوميشن 4"],["kat","إستلم مكافأة الكوميشنز من كاثرين"],["resin","صرف الريزن (دومين / بوس)"],["realm","إجمع عملة الريلم"],["exp","إبعت الإكسبيديشنز"],["hoyo","تشيك إن HoYoLAB"]];
+const TIPS=["إصرف الريزن قبل ما توصل 200 عشان متضيعش ريزن على الفاضي.","الكوميشنز الـ4 بيدوك Primogems، وبعدهم إستلم المكافأة من كاثرين عشان متضيعش.","ما تصرفش الريزن على أي حاجة غير الدومينز والبوسز اللي بتحتاجها فعلاً للبيلد.","الاكسبيديشنز بتتبعت قبل ما تنام وتستلمها الصبح، وفلوسها مفيدة.","الأرتيفاكت اللي فيه Crit Rate وCrit DMG أهم من أي ستات تانية في أغلب البيلدز.","حافظ على نسبة Crit Rate:Crit DMG قريبة من 1:2 للدمج الأحسن.","الأسلحة 4 نجوم المتطوّرة بتنفع كويس لو مفيش 5 نجوم، متحرقش الريزن على سلاح مش هتستخدمه.","إعمل تشيك إن HoYoLAB كل يوم عشان الجوائز الصغيرة تتجمع.","الريلم بيجمع عملة طول اليوم، إستلمها مرة واحدة كل يوم قبل ما تنسى.","طوّر التالنتس بعد ما تطوّر الكاركتر والسلاح، مش قبلهم.","استنى أحداث الباتش عشان تلم Primogems، الإيفنتات أحسن مصدر مجاني.","ما تبدّلش Fragile Resin غير لما تحتاجه فعلاً، وخلّيه للدومينز المهمة."];
+const DOM=["الأحد: كل الدومينز مفتوحة","الإتنين والتلات والأربع والخميس والخميس والجمعة والسبت: دومينز التالنتس والأسلحة بتتبدّل حسب اليوم، شوف الخريطة أو الكاتالوج. الأحد كله مفتوح."];
+const K="gdaily_v1";
+let S={server:1,rh:20,days:{},tip:0,inv:{},bCfg:{}};
+try{const r=localStorage.getItem(K);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+S.inv=S.inv||{};
+S.bCfg=S.bCfg||{};
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
+const $=id=>document.getElementById(id);
+const dk=(off=0)=>new Date(Date.now()+S.server*36e5-4*36e5-off*864e5).toISOString().slice(0,10);
+const today=()=>S.days[dk()]||(S.days[dk()]={t:{},done:false});
+
+function nextReset(){const n=new Date(Date.now()+S.server*36e5);const r=new Date(Date.UTC(n.getUTCFullYear(),n.getUTCMonth(),n.getUTCDate(),4));if(r<=n)r.setUTCDate(r.getUTCDate()+1);return r-n}
+function render(){
+  const d=today();let c=0;
+  const box=$("tasks");box.textContent="";
+  TASKS.forEach(([id,l])=>{
+    const row=document.createElement("label");row.className="task"+(d.t[id]?" d":"");
+    const cb=document.createElement("input");cb.type="checkbox";cb.checked=!!d.t[id];
+    const sp=document.createElement("span");sp.textContent=l;
+    cb.onchange=()=>{d.t[id]=cb.checked;d.done=TASKS.every(([i])=>d.t[i]);save();render()};
+    row.append(cb,sp);box.append(row);if(d.t[id])c++;
+  });
+  $("prog").textContent=c+" / "+TASKS.length+" خلصت";
+  $("barfill").style.width=(c/TASKS.length*100)+"%";
+  const b=$("doneBtn");b.className="big"+(d.done?" done":"");b.textContent=d.done?"خلصت الديلي ✔ (دوس تلغي)":"دوست عملت الديلي ✅";
+  let s=d.done?1:0;for(let i=1;i<400;i++){const x=S.days[dk(i)];if(x&&x.done)s++;else break}
+  $("streak").textContent="🔥 "+s+" يوم";
+  const ms=nextReset();$("reset").textContent="الديلي بيتصفّر بعد "+Math.floor(ms/36e5)+" ساعة و"+Math.floor(ms%36e5/6e4)+" دقيقة";
+  remind();
+}
+function remind(){
+  const d=today(),h=new Date().getHours(),late=!d.done&&h>=S.rh;
+  $("banner").classList.toggle("on",late);
+  document.title=late?"⚠️ الديلي!":"ديلي جنشن";
+  if(late&&window.Notification&&Notification.permission==="granted"){const k="n"+dk()+h;if(!sessionStorage.getItem(k)){try{sessionStorage.setItem(k,1)}catch(e){}try{new Notification("ديلي جنشن",{body:"لسه معملتش الديلي النهاردة!"})}catch(e){}}}
+}
+$("doneBtn").onclick=()=>{const d=today();d.done=!d.done;TASKS.forEach(([i])=>d.t[i]=d.done);save();render()};
+function tip(){const n=new Date().getDate();$("tip").textContent=TIPS[(n+S.tip)%TIPS.length];$("farm").textContent=new Date().getDay()===0?DOM[0]:"فكّر تفتح الدومينز اللي مفتوحة النهاردة وتصرف الريزن عليها.";}
+$("nextTip").onclick=()=>{S.tip++;save();tip()};
+$("calc").onclick=()=>{const r=Math.max(0,Math.min(200,+$("resin").value||0));const m=(200-r)*8;$("resinOut").textContent=r>=200?"الريزن فل! إصرفه دلوقتي.":"هيفل بعد "+Math.floor(m/60)+" ساعة و"+m%60+" دقيقة (الريزن بيزيد 1 كل 8 دقايق)."};
+$("server").value=S.server;$("server").onchange=e=>{S.server=+e.target.value;save();render()};
+const rh=$("rh");for(let i=0;i<24;i++){const o=document.createElement("option");o.value=i;o.textContent=i+":00";rh.append(o)}
+rh.value=S.rh;rh.onchange=e=>{S.rh=+e.target.value;save();render()};
+$("notif").onclick=()=>{if(window.Notification)Notification.requestPermission().then(()=>{$("notif").textContent=Notification.permission==="granted"?"الإشعارات شغالة":"الإشعارات مقفولة"});else $("notif").textContent="المتصفح مش بيدعمها"};
+
+// Claude link
+$("send").onclick=()=>{const q=$("q").value.trim()||"ظبطلي أكونت جنشن بتاعي";const d=today();const sys="انت مساعد خبير في Genshin Impact بتتكلم بالمصري. ساعدني أظبط أكونتي، ولو معلومة ناقصة إسألني، ومتخترعش أرقام. تقدّم الديلي: "+TASKS.filter(([i])=>d.t[i]).length+"/"+TASKS.length+". "+ctx();window.open("https://claude.ai/new?q="+encodeURIComponent(sys+"\n\nسؤالي: "+q),"_blank","noopener")};
+const NEWS=["الباتش الحالي 7.2 (نزل 4 نوفمبر): Mitya (إلكترو، كاتاليست) و Valeriy إتضافوا، وبانر Mitya وFurina خلص 24 نوفمبر.","البانر دلوقتي (من 24 نوفمبر لحد 15 ديسمبر): Zibai و Linnea ريران، ومعاهم 4 نجوم Illuga وAino وNingguang.","بانر الأسلحة: Lightbearing Moonshard و Golden Frostbound Oath، وفي Chronicled Wish لشخصيات ناتلان.","الجاي في 7.3: Anastasya (التسارية، كراي أو) و Danica (إلكترو) ظهروا رسمياً.","ميعاد 7.3 المتوقع 16 ديسمبر، واللايف ستريم تقريباً 4 أو 5 ديسمبر. ده تقدير مش رسمي، وبيتنزل في اللايف ستريم أكواد بريموجيمز."];
+const NEWSD="لقطة بتاريخ 26 نوفمبر 2026، من مواقع غير رسمية";
+function ctx(){const g=S.g||{p:0,gu:false};return "أخبار اللعبة ("+NEWSD+"): "+NEWS.join(" ")+" عداد حظ المستخدم: "+g.p+" سحبة من آخر 5★، "+(g.gu?"الجاية مضمونة":"الجاية 50/50")+". لو السؤال عن حاجة أحدث من كده قوله إنك مش متأكد."}
+$("newsDate").textContent=NEWSD+". اتأكد من HoYoLAB.";
+NEWS.forEach(t=>{const li=document.createElement("li");li.textContent=t;$("news").append(li)});
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x===b));document.querySelectorAll(".pane").forEach(p=>p.classList.toggle("on",p.id==="p-"+b.dataset.t))});
+S.p=S.p||{};
+function wk(){const[y,m,d]=dk().split("-").map(Number);const t=new Date(Date.UTC(y,m-1,d));t.setUTCDate(t.getUTCDate()-((t.getUTCDay()+6)%7));return "w"+t.toISOString().slice(0,10)}
+const PER={w:wk,h:()=>{const[y,m,d]=dk().split("-");return "h"+y+m+(+d<16?"a":"b")},m:()=>{const[y,m]=dk().split("-");return "m"+y+m}};
+const WT=[["b1","بوس ويكلي 1","w"],["b2","بوس ويكلي 2","w"],["b3","بوس ويكلي 3","w"],["pt","Parametric Transformer (كل 7 أيام)","w"],["ab","Spiral Abyss (بيتصفّر 1 و16)","h"],["th","Imaginarium Theater (شهري)","m"]];
+function wr(){const box=$("wtasks");box.textContent="";WT.forEach(([id,l,p])=>{const k=PER[p]()+id;const row=document.createElement("label");row.className="task"+(S.p[k]?" d":"");const cb=document.createElement("input");cb.type="checkbox";cb.checked=!!S.p[k];const sp=document.createElement("span");sp.textContent=l;cb.onchange=()=>{if(cb.checked)S.p[k]=true;else delete S.p[k];save();wr()};row.append(cb,sp);box.append(row)})}
+function gr(){const g=S.g||(S.g={p:0,gu:false});$("gp").textContent=g.p;$("gg").textContent=g.gu?"الجاية مضمونة ✔":"الجاية 50/50";$("gn").textContent=Math.max(0,90-g.p);$("gbar").style.width=(g.p/90*100)+"%";gp2()}
+function gp2(){const g=S.g,n=Math.floor((+$("pr").value||0)/160)+(+$("fa").value||0),need=Math.max(0,90-g.p)+(g.gu?0:90);$("po").textContent="معاك "+n+" سحبة. لضمان الشخصية في أسوأ حالة محتاج "+need+" سحبة"+(n>=need?" وإنت كفاية.":" وناقصك "+(need-n)+".")}
+$("g1").onclick=()=>{S.g.p=Math.min(89,S.g.p+1);save();gr()};
+$("g10").onclick=()=>{S.g.p=Math.min(89,S.g.p+10);save();gr()};
+$("gw").onclick=()=>{S.g.p=0;S.g.gu=false;save();gr()};
+$("gl").onclick=()=>{S.g.p=0;S.g.gu=true;save();gr()};
+$("pr").oninput=$("fa").oninput=()=>{gp2()};
+fetch("news.json",{cache:"no-store"}).then(r=>r.json()).then(j=>{
+if(Array.isArray(j.highlights)&&j.highlights.length){NEWS.length=0;NEWS.push(...j.highlights);$("news").textContent="";NEWS.forEach(t=>{const li=document.createElement("li");li.textContent=t;$("news").append(li)})}
+$("offD").textContent=j.updated?"آخر تحديث: "+j.updated:"لسه مفيش تحديث أوتوماتيك.";
+(j.official||[]).forEach(x=>{const li=document.createElement("li"),a=document.createElement("a");a.textContent=x.title;if(/^https:\/\//.test(x.url)){a.href=x.url;a.target="_blank";a.rel="noopener"}li.append(a);if(x.date){const sp=document.createElement("span");sp.className="mu";sp.textContent=" ("+x.date+")";li.append(sp)}$("off").append(li)})
+}).catch(()=>{});
+S.g=S.g||{p:0,gu:false};gr();wr();
+["أسحب لمين؟ ولا أستنى 7.3؟","أطوّر إيه الأول في أكونتي؟","إزاي أستغل الريزن أحسن؟"].forEach(t=>{const b=document.createElement("button");b.className="s";b.textContent=t;b.onclick=()=>{$("q").value=t;$("q").focus()};$("chips").append(b)});
+tip();render();setInterval(render,6e4);
+
+// ==========================================
+// BUILD & RESOURCE CALCULATOR ENGINE
+// ==========================================
+let DB = JSON.parse($("fallback-db").textContent);
+
+const LVL_STEPS = [
+  {lvl:1, asc:0, label:"1 / 20 (A0)"},
+  {lvl:20, asc:0, label:"20 / 20 (A0)"},
+  {lvl:20, asc:1, label:"20 / 40 (A1)"},
+  {lvl:40, asc:1, label:"40 / 40 (A1)"},
+  {lvl:40, asc:2, label:"40 / 50 (A2)"},
+  {lvl:50, asc:2, label:"50 / 50 (A2)"},
+  {lvl:50, asc:3, label:"50 / 60 (A3)"},
+  {lvl:60, asc:3, label:"60 / 60 (A3)"},
+  {lvl:60, asc:4, label:"60 / 70 (A4)"},
+  {lvl:70, asc:4, label:"70 / 70 (A4)"},
+  {lvl:70, asc:5, label:"70 / 80 (A5)"},
+  {lvl:80, asc:5, label:"80 / 80 (A5)"},
+  {lvl:80, asc:6, label:"80 / 90 (A6)"},
+  {lvl:90, asc:6, label:"90 / 90 (Max)"}
+];
+
+const DAYS_AR = {Monday:"الإثنين",Tuesday:"الثلاثاء",Wednesday:"الأربعاء",Thursday:"الخميس",Friday:"الجمعة",Saturday:"السبت",Sunday:"الأحد"};
+
+function fillLevelSelects() {
+  ["cCur","cTar","wCur","wTar"].forEach(id => {
+    const el = $(id); el.textContent = "";
+    LVL_STEPS.forEach((s, idx) => {
+      const o = document.createElement("option");
+      o.value = idx; o.textContent = s.label;
+      el.append(o);
+    });
+  });
+  ["tN1","tN2","tE1","tE2","tQ1","tQ2"].forEach(id => {
+    const el = $(id); el.textContent = "";
+    for (let i = 1; i <= 10; i++) {
+      const o = document.createElement("option");
+      o.value = i; o.textContent = "Lv." + i;
+      el.append(o);
+    }
+  });
+}
+
+document.querySelectorAll(".subtabs button").forEach(b => b.onclick = () => {
+  document.querySelectorAll(".subtabs button").forEach(x => x.classList.toggle("on", x === b));
+  $("st-calc").style.display = b.dataset.st === "calc" ? "block" : "none";
+  $("st-guide").style.display = b.dataset.st === "guide" ? "block" : "none";
+});
+
+function getCharConfig(charId) {
+  if (!S.bCfg[charId]) {
+    const ch = DB.characters[charId];
+    const defaultWep = ch?.recommendedWeapons?.[0]?.weaponId || "";
+    S.bCfg[charId] = {
+      cCur: 0, cTar: 13,
+      tN1: 1, tN2: 6,
+      tE1: 1, tE2: 9,
+      tQ1: 1, tQ2: 9,
+      wepId: defaultWep,
+      wCur: 0, wTar: 13
+    };
+  }
+  return S.bCfg[charId];
+}
+
+function populateCharList() {
+  const q = $("charSearch").value.trim().toLowerCase();
+  const elF = $("elemFilter").value;
+  const rF = $("rarityFilter").value;
+  const sel = $("charSelect");
+  const prev = sel.value || S.lastChar || "furina";
+  sel.textContent = "";
+
+  const chars = Object.values(DB.characters)
+    .filter(c => {
+      if (elF !== "ALL" && c.element !== elF) return false;
+      if (rF !== "ALL" && String(c.rarity) !== rF) return false;
+      if (q && !c.name.toLowerCase().includes(q) && !(c.arName || "").toLowerCase().includes(q)) return false;
+      return true;
+    })
+    .sort((a, b) => b.rarity - a.rarity || a.name.localeCompare(b.name));
+
+  chars.forEach(c => {
+    const o = document.createElement("option");
+    o.value = c.id;
+    o.textContent = `${c.rarity}★ ${c.name} (${c.arName || c.name}) — ${c.element} / ${c.weaponType}`;
+    sel.append(o);
+  });
+
+  if (chars.some(c => c.id === prev)) sel.value = prev;
+  else if (chars[0]) sel.value = chars[0].id;
+
+  $("dbCount").textContent = `${Object.keys(DB.characters).length} شخصية | ${Object.keys(DB.weapons).length} سلاح`;
+  onCharChange();
+}
+
+function onCharChange() {
+  const charId = $("charSelect").value;
+  const ch = DB.characters[charId];
+  if (!ch) return;
+  S.lastChar = charId;
+
+  const cfg = getCharConfig(charId);
+
+  // Header badges
+  const prioMap = {normal:"Normal", skill:"Skill (E)", burst:"Burst (Q)"};
+  const prioStr = (ch.talentPriority || []).map(p => prioMap[p] || p).join(" > ");
+  $("charHeader").innerHTML = `
+    <div>
+      <span class="badge r${ch.rarity}">${ch.rarity}★</span>
+      <span class="badge">${ch.element}</span>
+      <span class="badge">${ch.weaponType}</span>
+      ${ch.substat ? `<span class="badge">Ascension: ${ch.substat}</span>` : ""}
+    </div>
+    <div class="mu">أولوية التالنت: <b>${prioStr}</b></div>
+  `;
+
+  // Populate weapons for this character's weaponType (recommended first!)
+  const wSel = $("wepSelect");
+  wSel.textContent = "";
+  const noneOpt = document.createElement("option");
+  noneOpt.value = ""; noneOpt.textContent = "— بدون حساب سلاح —";
+  wSel.append(noneOpt);
+
+  const recIds = new Set((ch.recommendedWeapons || []).map(r => r.weaponId));
+  (ch.recommendedWeapons || []).forEach(r => {
+    const w = DB.weapons[r.weaponId];
+    if (!w) return;
+    const o = document.createElement("option");
+    o.value = w.id;
+    o.textContent = `⭐ [${r.tag}] ${w.name} (${w.rarity}★ - ${w.substat})`;
+    wSel.append(o);
+  });
+
+  Object.values(DB.weapons)
+    .filter(w => w.type.toLowerCase() === ch.weaponType.toLowerCase() && !recIds.has(w.id))
+    .sort((a, b) => b.rarity - a.rarity || a.name.localeCompare(b.name))
+    .forEach(w => {
+      const o = document.createElement("option");
+      o.value = w.id;
+      o.textContent = `${w.name} (${w.rarity}★ - ${w.substat})`;
+      wSel.append(o);
+    });
+
+  $("cCur").value = cfg.cCur;
+  $("cTar").value = cfg.cTar;
+  $("tN1").value = cfg.tN1; $("tN2").value = cfg.tN2;
+  $("tE1").value = cfg.tE1; $("tE2").value = cfg.tE2;
+  $("tQ1").value = cfg.tQ1; $("tQ2").value = cfg.tQ2;
+  wSel.value = cfg.wepId || "";
+  $("wCur").value = cfg.wCur;
+  $("wTar").value = cfg.wTar;
+
+  renderBuildGuide(ch);
+  recalcMaterials();
+}
+
+function renderBuildGuide(ch) {
+  // 1. Recommended Weapons
+  const wBox = $("recWeaponsList");
+  wBox.textContent = "";
+  (ch.recommendedWeapons || []).forEach((r, idx) => {
+    const w = DB.weapons[r.weaponId];
+    const div = document.createElement("div");
+    div.className = "build-box";
+    div.innerHTML = `
+      <div class="row" style="justify-content:space-between">
+        <b>#${idx + 1} ${w ? w.name : r.weaponId}</b>
+        <span class="badge r${w?.rarity || 4}">${r.tag}</span>
+      </div>
+      ${w ? `<div class="mu">الندرة: ${w.rarity}★ | Substat: ${w.substat} (${w.substatVal90 || ""})</div>` : ""}
+    `;
+    wBox.append(div);
+  });
+
+  // 2. Recommended Artifacts
+  const aBox = $("recArtifactsList");
+  aBox.textContent = "";
+  (ch.recommendedArtifacts || []).forEach((rec, idx) => {
+    const div = document.createElement("div");
+    div.className = "build-box";
+    const titles = rec.sets.map(s => {
+      const art = DB.artifacts[s.setId];
+      return `${art ? art.name : s.setId} (${s.pieces} قطعة)`;
+    }).join(" + ");
+
+    const details = rec.sets.map(s => {
+      const art = DB.artifacts[s.setId];
+      if (!art) return "";
+      return `<div class="mu" style="margin-top:4px">• <b>${art.name}:</b> (2pc) ${art.twoPiece} ${(s.pieces === 4 && art.fourPiece) ? `<br>• (4pc) ${art.fourPiece}` : ""}</div>`;
+    }).join("");
+
+    div.innerHTML = `
+      <div><b>الخيار #${idx + 1}: ${titles}</b></div>
+      <div style="font-size:13px;margin-top:3px">${rec.note || ""}</div>
+      ${details}
+    `;
+    aBox.append(div);
+  });
+
+  // 3. Stats
+  const st = ch.artifactStats || {};
+  $("recStatsBox").innerHTML = `
+    <div class="build-box">
+      <div><b>⏳ Sands:</b> ${(st.sands || []).map(x => `<span class="stat-pill">${x}</span>`).join("")}</div>
+      <div style="margin-top:5px"><b>🏆 Goblet:</b> ${(st.goblet || []).map(x => `<span class="stat-pill">${x}</span>`).join("")}</div>
+      <div style="margin-top:5px"><b>👑 Circlet:</b> ${(st.circlet || []).map(x => `<span class="stat-pill">${x}</span>`).join("")}</div>
+      <div style="margin-top:8px"><b>🎯 أولوية Substats:</b> ${(st.substats || []).join(" ← ")}</div>
+      ${st.breakpoints ? `<div class="mu" style="margin-top:6px">📌 <b>الأرقام المستهدفة:</b> ${st.breakpoints}</div>` : ""}
+    </div>
+  `;
+}
+
+function applyTierCrafting(tierIds, reqMap, invMap) {
+  // tierIds = [t1_id, t2_id, t3_id, (optional t4_id)]
+  const deficit = {};
+  const craftedFromLower = {};
+  let carry = 0;
+
+  for (let i = 0; i < tierIds.length; i++) {
+    const id = tierIds[i];
+    if (!id) continue;
+    const req = reqMap[id] || 0;
+    const owned = invMap[id] || 0;
+    const craftable = Math.floor(carry / 3);
+    const totalAvail = owned + craftable;
+
+    if (totalAvail >= req) {
+      deficit[id] = 0;
+      // Remaining raw items after satisfying req (prioritizing crafted first)
+      const usedCrafted = Math.min(craftable, req);
+      const usedOwned = req - usedCrafted;
+      const leftoverCrafted = craftable - usedCrafted;
+      const leftoverOwned = owned - usedOwned;
+      carry = leftoverOwned + leftoverCrafted * 3;
+      if (usedCrafted > 0) craftedFromLower[id] = usedCrafted;
+    } else {
+      deficit[id] = req - totalAvail;
+      if (craftable > 0) craftedFromLower[id] = craftable;
+      carry = 0;
+    }
+  }
+  return { deficit, craftedFromLower };
+}
+
+let lastMissingSummary = "";
+
+function recalcMaterials() {
+  const charId = $("charSelect").value;
+  const ch = DB.characters[charId];
+  if (!ch) return;
+
+  const cfg = getCharConfig(charId);
+  cfg.cCur = +$("cCur").value;
+  cfg.cTar = Math.max(cfg.cCur, +$("cTar").value);
+  $("cTar").value = cfg.cTar;
+
+  cfg.tN1 = +$("tN1").value; cfg.tN2 = Math.max(cfg.tN1, +$("tN2").value); $("tN2").value = cfg.tN2;
+  cfg.tE1 = +$("tE1").value; cfg.tE2 = Math.max(cfg.tE1, +$("tE2").value); $("tE2").value = cfg.tE2;
+  cfg.tQ1 = +$("tQ1").value; cfg.tQ2 = Math.max(cfg.tQ1, +$("tQ2").value); $("tQ2").value = cfg.tQ2;
+
+  cfg.wepId = $("wepSelect").value;
+  cfg.wCur = +$("wCur").value;
+  cfg.wTar = Math.max(cfg.wCur, +$("wTar").value);
+  $("wTar").value = cfg.wTar;
+  save();
+
+  const req = {};
+  const order = [];
+  const add = (id, amt) => {
+    if (!id || amt <= 0) return;
+    if (!req[id]) { req[id] = 0; order.push(id); }
+    req[id] += amt;
+  };
+
+  const T = DB.tables;
+  const cFrom = LVL_STEPS[cfg.cCur];
+  const cTo = LVL_STEPS[cfg.cTar];
+
+  // 1. Character Ascension
+  for (const step of T.characterAscension) {
+    if (step.phase > cFrom.asc && step.phase <= cTo.asc) {
+      add("mora", step.mora);
+      add(ch.tiers.gems[step.gemTier - 1], step.gemCount);
+      add(ch.tiers.boss, step.bossMat);
+      add(ch.tiers.specialty, step.specialty);
+      add(ch.tiers.common[step.commonTier - 1], step.commonCount);
+    }
+  }
+  // Character EXP
+  const cExp = (T.levelExp.characterCumulativeExp[String(cTo.lvl)] || 0) -
+               (T.levelExp.characterCumulativeExp[String(cFrom.lvl)] || 0);
+  if (cExp > 0) {
+    add("heros_wit", Math.ceil(cExp / 20000));
+    add("mora", Math.floor(cExp / 5));
+  }
+
+  // 2. Talents
+  [[cfg.tN1, cfg.tN2], [cfg.tE1, cfg.tE2], [cfg.tQ1, cfg.tQ2]].forEach(([cur, tar]) => {
+    for (const step of T.talentLevels) {
+      if (step.toLevel > cur && step.toLevel <= tar) {
+        add("mora", step.mora);
+        add(ch.tiers.books[step.bookTier - 1], step.bookCount);
+        add(ch.tiers.common[step.commonTier - 1], step.commonCount);
+        add(ch.tiers.weeklyBoss, step.weeklyBoss);
+        add("crown_of_insight", step.crown);
+      }
+    }
+  });
+
+  // 3. Weapon
+  const wep = DB.weapons[cfg.wepId];
+  if (wep) {
+    const wFrom = LVL_STEPS[cfg.wCur];
+    const wTo = LVL_STEPS[cfg.wTar];
+    const wTable = T.weaponAscension[String(wep.rarity)] || T.weaponAscension["4"];
+    for (const step of wTable) {
+      if (step.phase > wFrom.asc && step.phase <= wTo.asc) {
+        add("mora", step.mora);
+        add(wep.tiers.domain[step.domainTier - 1], step.domainCount);
+        add(wep.tiers.elite[step.eliteTier - 1], step.eliteCount);
+        add(wep.tiers.common[step.commonTier - 1], step.commonCount);
+      }
+    }
+    const wExpTable = T.levelExp.weaponCumulativeExp[String(wep.rarity)] || T.levelExp.weaponCumulativeExp["4"];
+    const wExp = (wExpTable[String(wTo.lvl)] || 0) - (wExpTable[String(wFrom.lvl)] || 0);
+    if (wExp > 0) {
+      add("mystic_enhancement_ore", Math.ceil(wExp / 10000));
+      add("mora", Math.floor(wExp / 10));
+    }
+  }
+
+  // Apply 3:1 Crafting conversion if checked
+  const craftedNotes = {};
+  const remMap = {};
+  for (const id of order) {
+    remMap[id] = Math.max(0, req[id] - (S.inv[id] || 0));
+  }
+
+  if ($("useCraft").checked) {
+    const groups = [
+      ch.tiers.gems,
+      ch.tiers.common,
+      ch.tiers.books,
+      ...(wep ? [wep.tiers.domain, wep.tiers.elite, wep.tiers.common] : [])
+    ];
+    for (const grp of groups) {
+      if (!grp || !grp.length) continue;
+      const { deficit, craftedFromLower } = applyTierCrafting(grp, req, S.inv);
+      Object.assign(remMap, deficit);
+      Object.assign(craftedNotes, craftedFromLower);
+    }
+  }
+
+  // Render Table
+  const tbody = $("matBody");
+  tbody.textContent = "";
+  let totalUnits = 0, doneUnits = 0;
+  const missingLines = [];
+
+  if (order.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="4" class="mu" style="text-align:center;padding:16px">الشخصية والسلاح واصلين للهدف المطلوب بالفعل! 🎉</td></tr>`;
+    $("buildPct").textContent = "100% جاهز";
+    $("buildBar").style.width = "100%";
+    lastMissingSummary = "لا يوجد نواقص — الشخصية جاهزة!";
+    return;
+  }
+
+  order.forEach(id => {
+    const rAmt = req[id];
+    const owned = S.inv[id] || 0;
+    const rem = remMap[id] ?? Math.max(0, rAmt - owned);
+    const meta = DB.materials[id] || { name: id.replace(/_/g, " ") };
+    const daysTxt = (meta.days && meta.days.length)
+      ? `<div class="mu" style="font-size:11px">📅 ${meta.days.map(d => DAYS_AR[d] || d).join("، ")}</div>`
+      : "";
+    const craftTxt = craftedNotes[id]
+      ? `<div style="font-size:11px;color:var(--ok)">⚗️ تقدر تصنع ${craftedNotes[id]} من الأقل</div>`
+      : "";
+
+    // Weight Mora by 10000 for progress bar fairness
+    const weight = id === "mora" ? 10000 : 1;
+    totalUnits += rAmt / weight;
+    doneUnits += Math.max(0, (rAmt - rem)) / weight;
+
+    if (rem > 0) {
+      missingLines.push(`- ${meta.arName || meta.name}: ${rem.toLocaleString()}`);
+    }
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>
+        <b>${meta.arName || meta.name}</b>
+        ${daysTxt}
+        ${craftTxt}
+      </td>
+      <td>${rAmt.toLocaleString()}</td>
+      <td><input type="number" min="0" value="${owned}" data-mat="${id}"></td>
+      <td>${rem === 0 ? `<span class="badge ok">✔ جاهز</span>` : `<span class="badge bad">${rem.toLocaleString()}</span>`}</td>
+    `;
+    tr.querySelector("input").onchange = (e) => {
+      S.inv[id] = Math.max(0, Math.floor(+e.target.value || 0));
+      save();
+      recalcMaterials();
+    };
+    tbody.append(tr);
+  });
+
+  const pct = totalUnits > 0 ? Math.min(100, Math.round((doneUnits / totalUnits) * 100)) : 100;
+  $("buildPct").textContent = `${pct}% مكتمل`;
+  $("buildBar").style.width = `${pct}%`;
+  lastMissingSummary = missingLines.length
+    ? `نواقص تطوير ${ch.name} (${cFrom.label} → ${cTo.label} | تالنت ${cfg.tN1}/${cfg.tE1}/${cfg.tQ1} → ${cfg.tN2}/${cfg.tE2}/${cfg.tQ2}):\n` + missingLines.join("\n")
+    : `كل موارد ${ch.name} مكتملة 100%!`;
+}
+
+// Quick preset buttons
+$("btnChar80").onclick = () => { $("cTar").value = 12; recalcMaterials(); };
+$("btnChar90").onclick = () => { $("cTar").value = 13; recalcMaterials(); };
+$("btnTal199").onclick = () => { $("tN2").value = Math.max(+$("tN1").value, 1); $("tE2").value = 9; $("tQ2").value = 9; recalcMaterials(); };
+$("btnTal999").onclick = () => { $("tN2").value = 9; $("tE2").value = 9; $("tQ2").value = 9; recalcMaterials(); };
+$("btnTalMax").onclick = () => { $("tN2").value = 10; $("tE2").value = 10; $("tQ2").value = 10; recalcMaterials(); };
+$("btnWep90").onclick = () => { $("wTar").value = 13; recalcMaterials(); };
+
+["charSearch","elemFilter","rarityFilter"].forEach(id => $(id).oninput = populateCharList);
+$("charSelect").onchange = onCharChange;
+["cCur","cTar","tN1","tN2","tE1","tE2","tQ1","tQ2","wepSelect","wCur","wTar","useCraft"].forEach(id => $(id).onchange = recalcMaterials);
+
+$("copyMissing").onclick = () => {
+  navigator.clipboard?.writeText(lastMissingSummary);
+  $("copyMissing").textContent = "✔ تم النسخ!";
+  setTimeout(() => $("copyMissing").textContent = "📋 انسخ قائمة النواقص", 1500);
+};
+
+$("askAiBuild").onclick = () => {
+  $("q").value = `عايز رأيك في البيلد وخطة صرف الريزن لتجهيز الشخصية دي:\n${lastMissingSummary}`;
+  document.querySelector('.tabs button[data-t="ai"]').click();
+  $("q").focus();
+};
+
+// Initialize calculator & attempt loading full external JSON database from ./data/
+fillLevelSelects();
+populateCharList();
+
+Promise.all([
+  fetch("data/ascension-tables.json", {cache:"no-store"}).then(r => r.ok ? r.json() : null),
+  fetch("data/characters.json", {cache:"no-store"}).then(r => r.ok ? r.json() : null),
+  fetch("data/weapons.json", {cache:"no-store"}).then(r => r.ok ? r.json() : null),
+  fetch("data/artifacts.json", {cache:"no-store"}).then(r => r.ok ? r.json() : null),
+  fetch("data/materials.json", {cache:"no-store"}).then(r => r.ok ? r.json() : null)
+]).then(([tables, characters, weapons, artifacts, materials]) => {
+  if (tables) DB.tables = tables;
+  if (characters && Object.keys(characters).length) DB.characters = characters;
+  if (weapons && Object.keys(weapons).length) DB.weapons = weapons;
+  if (artifacts && Object.keys(artifacts).length) DB.artifacts = artifacts;
+  if (materials && Object.keys(materials).length) DB.materials = materials;
+  populateCharList();
+}).catch(() => {});
+</script>
+<script src="account-sync.js?v=2"></script>
+</body>
+</html>
