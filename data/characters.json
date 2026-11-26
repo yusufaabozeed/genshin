@@ -275,7 +275,7 @@
   "alhaitham": {
     "id": "alhaitham",
     "name": "Alhaitham",
-    "arName": "Alhaitham",
+    "arName": "الهيثم",
     "rarity": 5,
     "element": "Dendro",
     "weaponType": "Sword",
@@ -303,37 +303,28 @@
     },
     "talentPriority": [
       "skill",
-      "burst",
-      "normal"
+      "normal",
+      "burst"
     ],
     "recommendedWeapons": [
       {
-        "weaponId": "absolution",
-        "tag": "أقوى خيار (5★)"
+        "weaponId": "light_of_foliar_incision",
+        "tag": "Best in Slot (5★)"
       },
       {
-        "weaponId": "athame_artis",
-        "tag": "5★ مناسب (CRIT Rate)"
+        "weaponId": "primordial_jade_cutter",
+        "tag": "5★ ممتاز (CRIT Rate)"
       },
       {
-        "weaponId": "azurelight",
-        "tag": "5★ مناسب (CRIT Rate)"
+        "weaponId": "wolf_fang",
+        "tag": "أفضل 4★ (Battle Pass)"
       },
       {
-        "weaponId": "beyond_the_chrysalis",
-        "tag": "5★ مناسب (CRIT DMG)"
+        "weaponId": "iron_sting",
+        "tag": "أفضل F2P (حدادة)"
       }
     ],
     "recommendedArtifacts": [
-      {
-        "sets": [
-          {
-            "setId": "deepwood_memories",
-            "pieces": 4
-          }
-        ],
-        "note": "طقم أساسي مناسب لعنصر Dendro"
-      },
       {
         "sets": [
           {
@@ -341,17 +332,24 @@
             "pieces": 4
           }
         ],
-        "note": "بديل قوي حسب دور الشخصية في الفريق"
+        "note": "الأفضل في أغلب الفرق لزيادة الـ EM والهجوم."
+      },
+      {
+        "sets": [
+          {
+            "setId": "deepwood_memories",
+            "pieces": 4
+          }
+        ],
+        "note": "استخدمه إذا لم يكن هناك شخصية أخرى في الفريق تحمله."
       }
     ],
     "artifactStats": {
       "sands": [
-        "ATK%",
-        "Energy Recharge"
+        "Elemental Mastery"
       ],
       "goblet": [
-        "Dendro DMG Bonus",
-        "Elemental Mastery"
+        "Dendro DMG Bonus"
       ],
       "circlet": [
         "CRIT Rate",
@@ -359,10 +357,10 @@
       ],
       "substats": [
         "CRIT Rate / DMG",
-        "Energy Recharge",
-        "ATK% / EM"
+        "Elemental Mastery",
+        "Energy Recharge"
       ],
-      "breakpoints": "CRIT Ratio 1:2 | ER: 130%-180% حسب الفريق"
+      "breakpoints": "EM: 350-450 | CRIT: 75/180+ | ER: 125%-140%"
     }
   },
   "aloy": {
@@ -1381,7 +1379,7 @@
   "chasca": {
     "id": "chasca",
     "name": "Chasca",
-    "arName": "Chasca",
+    "arName": "تشاسكا",
     "rarity": 5,
     "element": "Anemo",
     "weaponType": "Bow",
@@ -1414,61 +1412,50 @@
     ],
     "recommendedWeapons": [
       {
-        "weaponId": "aqua_simulacra",
-        "tag": "أقوى خيار (5★)"
-      },
-      {
         "weaponId": "astral_vulture_s_crimson_plumage",
-        "tag": "5★ مناسب (CRIT DMG)"
+        "tag": "Best in Slot (5★)"
       },
       {
-        "weaponId": "golden_frostbound_oath",
-        "tag": "5★ مناسب (CRIT DMG)"
+        "weaponId": "aqua_simulacra",
+        "tag": "5★ ممتاز (CRIT DMG)"
       },
       {
-        "weaponId": "hunter_s_path",
-        "tag": "5★ مناسب (CRIT Rate)"
+        "weaponId": "the_first_great_magic",
+        "tag": "5★ قوي جداً"
+      },
+      {
+        "weaponId": "chain_breaker",
+        "tag": "أفضل 4★ F2P (حدادة ناتلان)"
       }
     ],
     "recommendedArtifacts": [
       {
         "sets": [
           {
-            "setId": "viridescent_venerer",
+            "setId": "obsidian_codex",
             "pieces": 4
           }
         ],
-        "note": "طقم أساسي مناسب لعنصر Anemo"
-      },
-      {
-        "sets": [
-          {
-            "setId": "desert_pavilion_chronicle",
-            "pieces": 4
-          }
-        ],
-        "note": "بديل قوي حسب دور الشخصية في الفريق"
+        "note": "الأفضل بلا منازع: يرفع CRIT Rate بنسبة 40% أثناء الطيران."
       }
     ],
     "artifactStats": {
       "sands": [
-        "ATK%",
-        "Energy Recharge"
+        "ATK%"
       ],
       "goblet": [
-        "Anemo DMG Bonus",
-        "Elemental Mastery"
+        "ATK%"
       ],
       "circlet": [
-        "CRIT Rate",
         "CRIT DMG"
       ],
       "substats": [
-        "CRIT Rate / DMG",
-        "Energy Recharge",
-        "ATK% / EM"
+        "CRIT DMG",
+        "CRIT Rate",
+        "ATK%",
+        "Elemental Mastery"
       ],
-      "breakpoints": "CRIT Ratio 1:2 | ER: 130%-180% حسب الفريق"
+      "breakpoints": "ملاحظة: يفضّل Goblet ATK% لأن رصاصاتها تتحول لعناصر الفريق (Pyro/Hydro/Cryo/Electro)."
     }
   },
   "chevreuse": {
@@ -1753,7 +1740,7 @@
   "citlali": {
     "id": "citlali",
     "name": "Citlali",
-    "arName": "Citlali",
+    "arName": "سيتلالي",
     "rarity": 5,
     "element": "Cryo",
     "weaponType": "Catalyst",
@@ -1786,40 +1773,40 @@
     ],
     "recommendedWeapons": [
       {
-        "weaponId": "a_thousand_floating_dreams",
-        "tag": "أقوى خيار (5★)"
-      },
-      {
-        "weaponId": "nightweaver_s_looking_glass",
-        "tag": "5★ مناسب (Elemental Mastery)"
-      },
-      {
         "weaponId": "starcaller_s_watch",
-        "tag": "5★ مناسب (Elemental Mastery)"
+        "tag": "Best in Slot (5★)"
       },
       {
-        "weaponId": "sunny_morning_sleep_in",
-        "tag": "5★ مناسب (Elemental Mastery)"
+        "weaponId": "sacrificial_fragments",
+        "tag": "أفضل 4★ (EM + Reset)"
+      },
+      {
+        "weaponId": "thrilling_tales_of_dragon_slayers",
+        "tag": "بف هجوم +48% (3★ F2P)"
+      },
+      {
+        "weaponId": "favonius_codex",
+        "tag": "طاقة للفريق (ER)"
       }
     ],
     "recommendedArtifacts": [
       {
         "sets": [
           {
-            "setId": "blizzard_strayer",
+            "setId": "scroll_of_the_hero_of_cinder_city",
             "pieces": 4
           }
         ],
-        "note": "طقم أساسي مناسب لعنصر Cryo"
+        "note": "الأفضل بلا منازع: يمنح الفريق +40% Elemental DMG Bonus بعد تفاعل Nightsoul."
       },
       {
         "sets": [
           {
-            "setId": "marechaussee_hunter",
+            "setId": "tenacity_of_the_millelith",
             "pieces": 4
           }
         ],
-        "note": "بديل قوي حسب دور الشخصية في الفريق"
+        "note": "خيار داعم بديل يزيد قوة الدرع وهجوم الفريق +20%."
       }
     ],
     "artifactStats": {
@@ -1828,25 +1815,24 @@
         "Energy Recharge"
       ],
       "goblet": [
-        "Cryo DMG Bonus",
         "Elemental Mastery"
       ],
       "circlet": [
-        "CRIT Rate",
-        "CRIT DMG"
+        "Elemental Mastery",
+        "CRIT Rate"
       ],
       "substats": [
-        "CRIT Rate / DMG",
+        "Elemental Mastery",
         "Energy Recharge",
-        "ATK% / EM"
+        "CRIT Rate"
       ],
-      "breakpoints": "CRIT Ratio 1:2 | ER: 130%-180% حسب الفريق"
+      "breakpoints": "EM: 850-1,000+ (لأقوى درع) | ER: 160%-185%"
     }
   },
   "clorinde": {
     "id": "clorinde",
     "name": "Clorinde",
-    "arName": "Clorinde",
+    "arName": "كلوريند",
     "rarity": 5,
     "element": "Electro",
     "weaponType": "Sword",
@@ -1880,30 +1866,30 @@
     "recommendedWeapons": [
       {
         "weaponId": "absolution",
-        "tag": "أقوى خيار (5★)"
+        "tag": "Best in Slot (5★)"
       },
       {
-        "weaponId": "athame_artis",
-        "tag": "5★ مناسب (CRIT Rate)"
+        "weaponId": "mistsplitter_reforged",
+        "tag": "5★ ممتاز"
       },
       {
-        "weaponId": "azurelight",
-        "tag": "5★ مناسب (CRIT Rate)"
+        "weaponId": "the_black_sword",
+        "tag": "أفضل 4★ (Battle Pass)"
       },
       {
-        "weaponId": "beyond_the_chrysalis",
-        "tag": "5★ مناسب (CRIT DMG)"
+        "weaponId": "finale_of_the_deep",
+        "tag": "أفضل F2P (حدادة فونتين)"
       }
     ],
     "recommendedArtifacts": [
       {
         "sets": [
           {
-            "setId": "emblem_of_severed_fate",
+            "setId": "fragment_of_harmonic_whimsy",
             "pieces": 4
           }
         ],
-        "note": "طقم أساسي مناسب لعنصر Electro"
+        "note": "الأفضل بلا منازع: +54% ضرر كامل مع تغير Bond of Life."
       },
       {
         "sets": [
@@ -1912,28 +1898,26 @@
             "pieces": 4
           }
         ],
-        "note": "بديل قوي حسب دور الشخصية في الفريق"
+        "note": "ممتاز في فرق Aggravate لتقليل وقت انتظار الـ Skill."
       }
     ],
     "artifactStats": {
       "sands": [
-        "ATK%",
-        "Energy Recharge"
+        "ATK%"
       ],
       "goblet": [
-        "Electro DMG Bonus",
-        "Elemental Mastery"
+        "Electro DMG Bonus"
       ],
       "circlet": [
-        "CRIT Rate",
-        "CRIT DMG"
+        "CRIT DMG",
+        "CRIT Rate"
       ],
       "substats": [
         "CRIT Rate / DMG",
-        "Energy Recharge",
-        "ATK% / EM"
+        "ATK%",
+        "Elemental Mastery"
       ],
-      "breakpoints": "CRIT Ratio 1:2 | ER: 130%-180% حسب الفريق"
+      "breakpoints": "CRIT Rate: 70%-80% (تحصل +20% من الباسيف) | CRIT DMG: 200%+ | ATK: 2,000+"
     }
   },
   "collei": {
@@ -5098,7 +5082,7 @@
   "kinich": {
     "id": "kinich",
     "name": "Kinich",
-    "arName": "Kinich",
+    "arName": "كينيتش",
     "rarity": 5,
     "element": "Dendro",
     "weaponType": "Claymore",
@@ -5131,61 +5115,60 @@
     ],
     "recommendedWeapons": [
       {
-        "weaponId": "a_teaspoon_of_transcendence",
-        "tag": "أقوى خيار (5★)"
-      },
-      {
-        "weaponId": "a_thousand_blazing_suns",
-        "tag": "5★ مناسب (CRIT Rate)"
+        "weaponId": "fang_of_the_mountain_king",
+        "tag": "Best in Slot (5★)"
       },
       {
         "weaponId": "beacon_of_the_reed_sea",
-        "tag": "5★ مناسب (CRIT Rate)"
+        "tag": "5★ ممتاز (CRIT Rate)"
       },
       {
-        "weaponId": "fang_of_the_mountain_king",
-        "tag": "5★ مناسب (CRIT Rate)"
+        "weaponId": "serpent_spine",
+        "tag": "أفضل 4★ (Battle Pass)"
+      },
+      {
+        "weaponId": "earth_shaker",
+        "tag": "أفضل F2P (حدادة ناتلان)"
       }
     ],
     "recommendedArtifacts": [
       {
         "sets": [
           {
-            "setId": "deepwood_memories",
+            "setId": "obsidian_codex",
             "pieces": 4
           }
         ],
-        "note": "طقم أساسي مناسب لعنصر Dendro"
+        "note": "الأفضل بلا منازع: يمنح +40% CRIT Rate طوال فترة Nightsoul."
       },
       {
         "sets": [
           {
-            "setId": "gilded_dreams",
+            "setId": "unfinished_reverie",
             "pieces": 4
           }
         ],
-        "note": "بديل قوي حسب دور الشخصية في الفريق"
+        "note": "خيار قوي جداً في فرق Burning."
       }
     ],
     "artifactStats": {
       "sands": [
+        "ATK%"
+      ],
+      "goblet": [
+        "Dendro DMG Bonus"
+      ],
+      "circlet": [
+        "CRIT DMG",
+        "CRIT Rate"
+      ],
+      "substats": [
+        "CRIT DMG",
+        "CRIT Rate",
         "ATK%",
         "Energy Recharge"
       ],
-      "goblet": [
-        "Dendro DMG Bonus",
-        "Elemental Mastery"
-      ],
-      "circlet": [
-        "CRIT Rate",
-        "CRIT DMG"
-      ],
-      "substats": [
-        "CRIT Rate / DMG",
-        "Energy Recharge",
-        "ATK% / EM"
-      ],
-      "breakpoints": "CRIT Ratio 1:2 | ER: 130%-180% حسب الفريق"
+      "breakpoints": "CRIT Rate: 50%-60% (يصل 90%-100% مع Obsidian) | CRIT DMG: 200%+ | ATK: 2,000+"
     }
   },
   "kirara": {
@@ -6301,7 +6284,7 @@
   "lyney": {
     "id": "lyney",
     "name": "Lyney",
-    "arName": "Lyney",
+    "arName": "ليني",
     "rarity": 5,
     "element": "Pyro",
     "weaponType": "Bow",
@@ -6328,38 +6311,25 @@
       "weeklyBoss": "primordial_greenbloom"
     },
     "talentPriority": [
-      "skill",
+      "normal",
       "burst",
-      "normal"
+      "skill"
     ],
     "recommendedWeapons": [
       {
+        "weaponId": "the_first_great_magic",
+        "tag": "Best in Slot (5★)"
+      },
+      {
         "weaponId": "aqua_simulacra",
-        "tag": "أقوى خيار (5★)"
+        "tag": "5★ ممتاز"
       },
       {
-        "weaponId": "astral_vulture_s_crimson_plumage",
-        "tag": "5★ مناسب (CRIT DMG)"
-      },
-      {
-        "weaponId": "golden_frostbound_oath",
-        "tag": "5★ مناسب (CRIT DMG)"
-      },
-      {
-        "weaponId": "hunter_s_path",
-        "tag": "5★ مناسب (CRIT Rate)"
+        "weaponId": "song_of_stillness",
+        "tag": "أفضل 4★ F2P (حدادة فونتين)"
       }
     ],
     "recommendedArtifacts": [
-      {
-        "sets": [
-          {
-            "setId": "crimson_witch_of_flames",
-            "pieces": 4
-          }
-        ],
-        "note": "طقم أساسي مناسب لعنصر Pyro"
-      },
       {
         "sets": [
           {
@@ -6367,28 +6337,25 @@
             "pieces": 4
           }
         ],
-        "note": "بديل قوي حسب دور الشخصية في الفريق"
+        "note": "الأفضل بلا منازع: +36% CRIT Rate تلقائياً."
       }
     ],
     "artifactStats": {
       "sands": [
-        "ATK%",
-        "Energy Recharge"
+        "ATK%"
       ],
       "goblet": [
-        "Pyro DMG Bonus",
-        "Elemental Mastery"
+        "Pyro DMG Bonus"
       ],
       "circlet": [
-        "CRIT Rate",
         "CRIT DMG"
       ],
       "substats": [
-        "CRIT Rate / DMG",
-        "Energy Recharge",
-        "ATK% / EM"
+        "CRIT DMG",
+        "CRIT Rate",
+        "ATK%"
       ],
-      "breakpoints": "CRIT Ratio 1:2 | ER: 130%-180% حسب الفريق"
+      "breakpoints": "CRIT Rate: 55%-64% (ليصل 91%-100%) | CRIT DMG: 210%+"
     }
   },
   "manekin": {
@@ -6925,7 +6892,7 @@
   "mualani": {
     "id": "mualani",
     "name": "Mualani",
-    "arName": "Mualani",
+    "arName": "موالاني",
     "rarity": 5,
     "element": "Hydro",
     "weaponType": "Catalyst",
@@ -6958,31 +6925,31 @@
     ],
     "recommendedWeapons": [
       {
-        "weaponId": "cashflow_supervision",
-        "tag": "أقوى خيار (5★)"
+        "weaponId": "surf_s_up",
+        "tag": "Best in Slot (5★)"
       },
       {
-        "weaponId": "kagura_s_verity",
-        "tag": "5★ مناسب (CRIT DMG)"
+        "weaponId": "a_thousand_floating_dreams",
+        "tag": "5★ ممتاز (EM)"
       },
       {
-        "weaponId": "lost_prayer_to_the_sacred_winds",
-        "tag": "5★ مناسب (CRIT Rate)"
+        "weaponId": "sacrificial_jade",
+        "tag": "أفضل 4★ (Battle Pass)"
       },
       {
-        "weaponId": "nocturne_s_curtain_call",
-        "tag": "5★ مناسب (CRIT DMG)"
+        "weaponId": "ring_of_yaxche",
+        "tag": "أفضل F2P (حدادة ناتلان)"
       }
     ],
     "recommendedArtifacts": [
       {
         "sets": [
           {
-            "setId": "golden_troupe",
+            "setId": "obsidian_codex",
             "pieces": 4
           }
         ],
-        "note": "طقم أساسي مناسب لعنصر Hydro"
+        "note": "الأفضل بلا منازع: +40% CRIT Rate و +15% ضرر."
       },
       {
         "sets": [
@@ -6991,28 +6958,29 @@
             "pieces": 4
           }
         ],
-        "note": "بديل قوي حسب دور الشخصية في الفريق"
+        "note": "خيار انتقالي مناسب لزيادة ضرر الهجمات العادية بعد الـ Skill."
       }
     ],
     "artifactStats": {
       "sands": [
-        "ATK%",
-        "Energy Recharge"
+        "HP%",
+        "Elemental Mastery"
       ],
       "goblet": [
         "Hydro DMG Bonus",
-        "Elemental Mastery"
+        "HP%"
       ],
       "circlet": [
-        "CRIT Rate",
-        "CRIT DMG"
+        "CRIT DMG",
+        "HP%"
       ],
       "substats": [
-        "CRIT Rate / DMG",
-        "Energy Recharge",
-        "ATK% / EM"
+        "CRIT DMG",
+        "CRIT Rate",
+        "HP%",
+        "Elemental Mastery"
       ],
-      "breakpoints": "CRIT Ratio 1:2 | ER: 130%-180% حسب الفريق"
+      "breakpoints": "HP: 35,000-40,000 | EM: 150-250 (لـ Vaporize) | CRIT Rate: 50%-60% قبل بونص الطقم"
     }
   },
   "nahida": {
@@ -7110,7 +7078,7 @@
   "navia": {
     "id": "navia",
     "name": "Navia",
-    "arName": "Navia",
+    "arName": "نافيا",
     "rarity": 5,
     "element": "Geo",
     "weaponType": "Claymore",
@@ -7138,55 +7106,53 @@
     },
     "talentPriority": [
       "skill",
-      "burst",
-      "normal"
+      "normal",
+      "burst"
     ],
     "recommendedWeapons": [
       {
-        "weaponId": "a_teaspoon_of_transcendence",
-        "tag": "أقوى خيار (5★)"
+        "weaponId": "verdict",
+        "tag": "Best in Slot (5★)"
       },
       {
-        "weaponId": "a_thousand_blazing_suns",
-        "tag": "5★ مناسب (CRIT Rate)"
+        "weaponId": "serpent_spine",
+        "tag": "أفضل 4★ (ينافس الـ 5★)"
       },
       {
-        "weaponId": "beacon_of_the_reed_sea",
-        "tag": "5★ مناسب (CRIT Rate)"
+        "weaponId": "ultimate_overlord_s_mega_magic_sword",
+        "tag": "أفضل 4★ (Event)"
       },
       {
-        "weaponId": "fang_of_the_mountain_king",
-        "tag": "5★ مناسب (CRIT Rate)"
+        "weaponId": "tidal_shadow",
+        "tag": "أفضل F2P (حدادة فونتين)"
       }
     ],
     "recommendedArtifacts": [
       {
         "sets": [
           {
-            "setId": "scroll_of_the_hero_of_cinder_city",
+            "setId": "nighttime_whispers_in_the_echoing_woods",
             "pieces": 4
           }
         ],
-        "note": "طقم أساسي مناسب لعنصر Geo"
+        "note": "طقمها المخصص: +50% Geo DMG Bonus مع درع Crystallize."
       },
       {
         "sets": [
           {
-            "setId": "golden_troupe",
+            "setId": "marechaussee_hunter",
             "pieces": 4
           }
         ],
-        "note": "بديل قوي حسب دور الشخصية في الفريق"
+        "note": "ممتاز فقط عند اللعب مع فورينا."
       }
     ],
     "artifactStats": {
       "sands": [
-        "ATK%",
-        "Energy Recharge"
+        "ATK%"
       ],
       "goblet": [
-        "Geo DMG Bonus",
-        "Elemental Mastery"
+        "Geo DMG Bonus"
       ],
       "circlet": [
         "CRIT Rate",
@@ -7194,10 +7160,10 @@
       ],
       "substats": [
         "CRIT Rate / DMG",
-        "Energy Recharge",
-        "ATK% / EM"
+        "ATK%",
+        "Energy Recharge"
       ],
-      "breakpoints": "CRIT Ratio 1:2 | ER: 130%-180% حسب الفريق"
+      "breakpoints": "CRIT Rate: 80%-90% (لضمان كريت طلقة الـ Skill) | ER: 120%-135%"
     }
   },
   "nefer": {
@@ -8487,7 +8453,7 @@
   "sangonomiya_kokomi": {
     "id": "sangonomiya_kokomi",
     "name": "Sangonomiya Kokomi",
-    "arName": "Sangonomiya Kokomi",
+    "arName": "كوكومي",
     "rarity": 5,
     "element": "Hydro",
     "weaponType": "Catalyst",
@@ -8520,61 +8486,54 @@
     ],
     "recommendedWeapons": [
       {
-        "weaponId": "cashflow_supervision",
-        "tag": "أقوى خيار (5★)"
+        "weaponId": "thrilling_tales_of_dragon_slayers",
+        "tag": "أفضل سلاح داعم للفريق (3★ F2P)"
       },
       {
-        "weaponId": "kagura_s_verity",
-        "tag": "5★ مناسب (CRIT DMG)"
+        "weaponId": "prototype_amber",
+        "tag": "أفضل F2P للهيل والطاقة"
       },
       {
-        "weaponId": "lost_prayer_to_the_sacred_winds",
-        "tag": "5★ مناسب (CRIT Rate)"
-      },
-      {
-        "weaponId": "nocturne_s_curtain_call",
-        "tag": "5★ مناسب (CRIT DMG)"
+        "weaponId": "everlasting_moonglow",
+        "tag": "سلاحها الخاص (5★)"
       }
     ],
     "recommendedArtifacts": [
       {
         "sets": [
           {
-            "setId": "golden_troupe",
+            "setId": "tenacity_of_the_millelith",
             "pieces": 4
           }
         ],
-        "note": "طقم أساسي مناسب لعنصر Hydro"
+        "note": "الأفضل في فرق Freeze و Hyperbloom لدعم الفريق."
       },
       {
         "sets": [
           {
-            "setId": "heart_of_depth",
+            "setId": "ocean_hued_clam",
             "pieces": 4
           }
         ],
-        "note": "بديل قوي حسب دور الشخصية في الفريق"
+        "note": "الأفضل لزيادة الهيل وضرر الفقاعة في فرق Mono Hydro / Taser."
       }
     ],
     "artifactStats": {
       "sands": [
-        "ATK%",
+        "HP%",
         "Energy Recharge"
       ],
       "goblet": [
-        "Hydro DMG Bonus",
-        "Elemental Mastery"
+        "HP%"
       ],
       "circlet": [
-        "CRIT Rate",
-        "CRIT DMG"
+        "Healing Bonus"
       ],
       "substats": [
-        "CRIT Rate / DMG",
-        "Energy Recharge",
-        "ATK% / EM"
+        "HP%",
+        "Energy Recharge"
       ],
-      "breakpoints": "CRIT Ratio 1:2 | ER: 130%-180% حسب الفريق"
+      "breakpoints": "HP: 36,000-42,000 | ER: 160%-190%"
     }
   },
   "sayu": {
@@ -8766,7 +8725,7 @@
   "shenhe": {
     "id": "shenhe",
     "name": "Shenhe",
-    "arName": "Shenhe",
+    "arName": "شينهي",
     "rarity": 5,
     "element": "Cryo",
     "weaponType": "Polearm",
@@ -8799,40 +8758,40 @@
     ],
     "recommendedWeapons": [
       {
-        "weaponId": "bloodsoaked_ruins",
-        "tag": "أقوى خيار (5★)"
+        "weaponId": "calamity_queller",
+        "tag": "Best in Slot (5★)"
       },
       {
-        "weaponId": "crimson_moon_s_semblance",
-        "tag": "5★ مناسب (CRIT Rate)"
+        "weaponId": "engulfing_lightning",
+        "tag": "5★ ممتاز (ER + ATK)"
       },
       {
-        "weaponId": "disaster_and_remorse",
-        "tag": "5★ مناسب (CRIT Rate)"
-      },
-      {
-        "weaponId": "fractured_halo",
-        "tag": "5★ مناسب (CRIT DMG)"
+        "weaponId": "favonius_lance",
+        "tag": "أفضل 4★ بلا منازع"
       }
     ],
     "recommendedArtifacts": [
       {
         "sets": [
           {
-            "setId": "blizzard_strayer",
-            "pieces": 4
+            "setId": "gladiator_s_finale",
+            "pieces": 2
+          },
+          {
+            "setId": "shimenawa_s_reminiscence",
+            "pieces": 2
           }
         ],
-        "note": "طقم أساسي مناسب لعنصر Cryo"
+        "note": "الأعلى في الهجوم (+36% ATK) لتعظيم بف Icy Quills."
       },
       {
         "sets": [
           {
-            "setId": "marechaussee_hunter",
+            "setId": "noblesse_oblige",
             "pieces": 4
           }
         ],
-        "note": "بديل قوي حسب دور الشخصية في الفريق"
+        "note": "خيار داعم يضيف +20% ATK للفريق."
       }
     ],
     "artifactStats": {
@@ -8841,19 +8800,17 @@
         "Energy Recharge"
       ],
       "goblet": [
-        "Cryo DMG Bonus",
-        "Elemental Mastery"
+        "ATK%"
       ],
       "circlet": [
-        "CRIT Rate",
-        "CRIT DMG"
+        "ATK%"
       ],
       "substats": [
-        "CRIT Rate / DMG",
+        "ATK%",
         "Energy Recharge",
-        "ATK% / EM"
+        "CRIT Rate (مع Favonius)"
       ],
-      "breakpoints": "CRIT Ratio 1:2 | ER: 130%-180% حسب الفريق"
+      "breakpoints": "ATK: 3,400-4,000+ | ER: 175%-195%"
     }
   },
   "shikanoin_heizou": {
@@ -10068,7 +10025,7 @@
   "wanderer": {
     "id": "wanderer",
     "name": "Wanderer",
-    "arName": "Wanderer",
+    "arName": "واندرر (سكاراموش)",
     "rarity": 5,
     "element": "Anemo",
     "weaponType": "Catalyst",
@@ -10095,38 +10052,25 @@
       "weeklyBoss": "daka_s_bell"
     },
     "talentPriority": [
+      "normal",
       "skill",
-      "burst",
-      "normal"
+      "burst"
     ],
     "recommendedWeapons": [
       {
-        "weaponId": "cashflow_supervision",
-        "tag": "أقوى خيار (5★)"
-      },
-      {
-        "weaponId": "kagura_s_verity",
-        "tag": "5★ مناسب (CRIT DMG)"
+        "weaponId": "tulaytullah_s_remembrance",
+        "tag": "Best in Slot (5★)"
       },
       {
         "weaponId": "lost_prayer_to_the_sacred_winds",
-        "tag": "5★ مناسب (CRIT Rate)"
+        "tag": "5★ ممتاز (CRIT Rate)"
       },
       {
-        "weaponId": "nocturne_s_curtain_call",
-        "tag": "5★ مناسب (CRIT DMG)"
+        "weaponId": "the_widsith",
+        "tag": "أفضل 4★"
       }
     ],
     "recommendedArtifacts": [
-      {
-        "sets": [
-          {
-            "setId": "viridescent_venerer",
-            "pieces": 4
-          }
-        ],
-        "note": "طقم أساسي مناسب لعنصر Anemo"
-      },
       {
         "sets": [
           {
@@ -10134,17 +10078,24 @@
             "pieces": 4
           }
         ],
-        "note": "بديل قوي حسب دور الشخصية في الفريق"
+        "note": "الأفضل: يرفع سرعة الهجوم +10% وضرر Normal/Charged +40%."
+      },
+      {
+        "sets": [
+          {
+            "setId": "shimenawa_s_reminiscence",
+            "pieces": 4
+          }
+        ],
+        "note": "بديل قوي جداً في الدومين المشترك مع Emblem."
       }
     ],
     "artifactStats": {
       "sands": [
-        "ATK%",
-        "Energy Recharge"
+        "ATK%"
       ],
       "goblet": [
-        "Anemo DMG Bonus",
-        "Elemental Mastery"
+        "Anemo DMG Bonus"
       ],
       "circlet": [
         "CRIT Rate",
@@ -10152,16 +10103,15 @@
       ],
       "substats": [
         "CRIT Rate / DMG",
-        "Energy Recharge",
-        "ATK% / EM"
+        "ATK%"
       ],
-      "breakpoints": "CRIT Ratio 1:2 | ER: 130%-180% حسب الفريق"
+      "breakpoints": "CRIT: 75/185+ | ATK: 2,000+"
     }
   },
   "wriothesley": {
     "id": "wriothesley",
     "name": "Wriothesley",
-    "arName": "Wriothesley",
+    "arName": "ريوثيسلي",
     "rarity": 5,
     "element": "Cryo",
     "weaponType": "Catalyst",
@@ -10188,38 +10138,29 @@
       "weeklyBoss": "primordial_greenbloom"
     },
     "talentPriority": [
+      "normal",
       "skill",
-      "burst",
-      "normal"
+      "burst"
     ],
     "recommendedWeapons": [
       {
         "weaponId": "cashflow_supervision",
-        "tag": "أقوى خيار (5★)"
+        "tag": "Best in Slot (5★)"
       },
       {
-        "weaponId": "kagura_s_verity",
-        "tag": "5★ مناسب (CRIT DMG)"
+        "weaponId": "tulaytullah_s_remembrance",
+        "tag": "5★ ممتاز"
       },
       {
-        "weaponId": "lost_prayer_to_the_sacred_winds",
-        "tag": "5★ مناسب (CRIT Rate)"
+        "weaponId": "flowing_purity",
+        "tag": "أفضل 4★ F2P (حدادة فونتين)"
       },
       {
-        "weaponId": "nocturne_s_curtain_call",
-        "tag": "5★ مناسب (CRIT DMG)"
+        "weaponId": "the_widsith",
+        "tag": "خيار 4★ قوي"
       }
     ],
     "recommendedArtifacts": [
-      {
-        "sets": [
-          {
-            "setId": "blizzard_strayer",
-            "pieces": 4
-          }
-        ],
-        "note": "طقم أساسي مناسب لعنصر Cryo"
-      },
       {
         "sets": [
           {
@@ -10227,28 +10168,27 @@
             "pieces": 4
           }
         ],
-        "note": "بديل قوي حسب دور الشخصية في الفريق"
+        "note": "الأفضل بلا منازع: +36% CRIT Rate و +15% Normal/Charged DMG."
       }
     ],
     "artifactStats": {
       "sands": [
         "ATK%",
-        "Energy Recharge"
-      ],
-      "goblet": [
-        "Cryo DMG Bonus",
         "Elemental Mastery"
       ],
+      "goblet": [
+        "Cryo DMG Bonus"
+      ],
       "circlet": [
-        "CRIT Rate",
         "CRIT DMG"
       ],
       "substats": [
-        "CRIT Rate / DMG",
-        "Energy Recharge",
-        "ATK% / EM"
+        "CRIT DMG",
+        "CRIT Rate",
+        "ATK%",
+        "Elemental Mastery"
       ],
-      "breakpoints": "CRIT Ratio 1:2 | ER: 130%-180% حسب الفريق"
+      "breakpoints": "CRIT Rate: 50%-60% قبل بونص الطقم | EM: 120-200 في فرق Melt"
     }
   },
   "xiangling": {
@@ -10440,7 +10380,7 @@
   "xiao": {
     "id": "xiao",
     "name": "Xiao",
-    "arName": "Xiao",
+    "arName": "شياو",
     "rarity": 5,
     "element": "Anemo",
     "weaponType": "Polearm",
@@ -10467,56 +10407,55 @@
       "weeklyBoss": "shadow_of_the_warrior"
     },
     "talentPriority": [
-      "skill",
+      "normal",
       "burst",
-      "normal"
+      "skill"
     ],
     "recommendedWeapons": [
       {
-        "weaponId": "bloodsoaked_ruins",
-        "tag": "أقوى خيار (5★)"
+        "weaponId": "primordial_jade_winged_spear",
+        "tag": "Best in Slot (5★)"
       },
       {
-        "weaponId": "crimson_moon_s_semblance",
-        "tag": "5★ مناسب (CRIT Rate)"
+        "weaponId": "staff_of_homa",
+        "tag": "5★ ممتاز (CRIT DMG)"
       },
       {
-        "weaponId": "disaster_and_remorse",
-        "tag": "5★ مناسب (CRIT Rate)"
+        "weaponId": "deathmatch",
+        "tag": "أفضل 4★ (Battle Pass)"
       },
       {
-        "weaponId": "fractured_halo",
-        "tag": "5★ مناسب (CRIT DMG)"
+        "weaponId": "blackcliff_pole",
+        "tag": "أفضل F2P (متجر Starglitter)"
       }
     ],
     "recommendedArtifacts": [
       {
         "sets": [
           {
-            "setId": "viridescent_venerer",
+            "setId": "vermillion_hereafter",
             "pieces": 4
           }
         ],
-        "note": "طقم أساسي مناسب لعنصر Anemo"
+        "note": "طقم شياو المخصص لزيادة الـ ATK أثناء الـ Burst."
       },
       {
         "sets": [
           {
-            "setId": "desert_pavilion_chronicle",
+            "setId": "marechaussee_hunter",
             "pieces": 4
           }
         ],
-        "note": "بديل قوي حسب دور الشخصية في الفريق"
+        "note": "ينافس Vermillion بقوة خاصة مع فورينا وفاروزان."
       }
     ],
     "artifactStats": {
       "sands": [
-        "ATK%",
-        "Energy Recharge"
+        "ATK%"
       ],
       "goblet": [
         "Anemo DMG Bonus",
-        "Elemental Mastery"
+        "ATK%"
       ],
       "circlet": [
         "CRIT Rate",
@@ -10524,10 +10463,10 @@
       ],
       "substats": [
         "CRIT Rate / DMG",
-        "Energy Recharge",
-        "ATK% / EM"
+        "ATK%",
+        "Energy Recharge"
       ],
-      "breakpoints": "CRIT Ratio 1:2 | ER: 130%-180% حسب الفريق"
+      "breakpoints": "CRIT: 80/190+ | ATK: 2,100+ | ER: 120%-135%"
     }
   },
   "xilonen": {
@@ -11078,7 +11017,7 @@
   "yelan": {
     "id": "yelan",
     "name": "Yelan",
-    "arName": "Yelan",
+    "arName": "ييلان",
     "rarity": 5,
     "element": "Hydro",
     "weaponType": "Bow",
@@ -11105,67 +11044,53 @@
       "weeklyBoss": "gilded_scale"
     },
     "talentPriority": [
-      "skill",
       "burst",
+      "skill",
       "normal"
     ],
     "recommendedWeapons": [
       {
         "weaponId": "aqua_simulacra",
-        "tag": "أقوى خيار (5★)"
+        "tag": "Best in Slot (5★)"
       },
       {
-        "weaponId": "astral_vulture_s_crimson_plumage",
-        "tag": "5★ مناسب (CRIT DMG)"
+        "weaponId": "elegy_for_the_end",
+        "tag": "أفضل 5★ داعم للفريق"
       },
       {
-        "weaponId": "golden_frostbound_oath",
-        "tag": "5★ مناسب (CRIT DMG)"
-      },
-      {
-        "weaponId": "hunter_s_path",
-        "tag": "5★ مناسب (CRIT Rate)"
+        "weaponId": "favonius_warbow",
+        "tag": "أفضل 4★ بلا منازع (ER)"
       }
     ],
     "recommendedArtifacts": [
       {
         "sets": [
           {
-            "setId": "golden_troupe",
+            "setId": "emblem_of_severed_fate",
             "pieces": 4
           }
         ],
-        "note": "طقم أساسي مناسب لعنصر Hydro"
-      },
-      {
-        "sets": [
-          {
-            "setId": "heart_of_depth",
-            "pieces": 4
-          }
-        ],
-        "note": "بديل قوي حسب دور الشخصية في الفريق"
+        "note": "الأفضل بلا منازع: يحول الـ ER إلى ضرر Burst ضخم."
       }
     ],
     "artifactStats": {
       "sands": [
-        "ATK%",
+        "HP%",
         "Energy Recharge"
       ],
       "goblet": [
-        "Hydro DMG Bonus",
-        "Elemental Mastery"
+        "Hydro DMG Bonus"
       ],
       "circlet": [
         "CRIT Rate",
         "CRIT DMG"
       ],
       "substats": [
-        "CRIT Rate / DMG",
         "Energy Recharge",
-        "ATK% / EM"
+        "CRIT Rate / DMG",
+        "HP%"
       ],
-      "breakpoints": "CRIT Ratio 1:2 | ER: 130%-180% حسب الفريق"
+      "breakpoints": "HP: 30,000-35,000 | ER: 180%-200% (Solo Hydro) أو 145%-165% (Double Hydro)"
     }
   },
   "yoimiya": {
@@ -11450,7 +11375,7 @@
   "zhongli": {
     "id": "zhongli",
     "name": "Zhongli",
-    "arName": "Zhongli",
+    "arName": "جونغلي",
     "rarity": 5,
     "element": "Geo",
     "weaponType": "Polearm",
@@ -11483,61 +11408,55 @@
     ],
     "recommendedWeapons": [
       {
-        "weaponId": "bloodsoaked_ruins",
-        "tag": "أقوى خيار (5★)"
+        "weaponId": "black_tassel",
+        "tag": "أقوى درع في اللعبة (3★ F2P)"
       },
       {
-        "weaponId": "crimson_moon_s_semblance",
-        "tag": "5★ مناسب (CRIT Rate)"
+        "weaponId": "favonius_lance",
+        "tag": "أفضل سلاح داعم لطاقة الفريق"
       },
       {
-        "weaponId": "disaster_and_remorse",
-        "tag": "5★ مناسب (CRIT Rate)"
-      },
-      {
-        "weaponId": "fractured_halo",
-        "tag": "5★ مناسب (CRIT DMG)"
+        "weaponId": "staff_of_homa",
+        "tag": "خيار Sub-DPS (5★)"
       }
     ],
     "recommendedArtifacts": [
       {
         "sets": [
           {
-            "setId": "scroll_of_the_hero_of_cinder_city",
+            "setId": "tenacity_of_the_millelith",
             "pieces": 4
           }
         ],
-        "note": "طقم أساسي مناسب لعنصر Geo"
+        "note": "الأفضل للدعم: يقوي الدرع +30% ويرفع هجوم الفريق +20%."
       },
       {
         "sets": [
           {
-            "setId": "golden_troupe",
+            "setId": "archaic_petra",
             "pieces": 4
           }
         ],
-        "note": "بديل قوي حسب دور الشخصية في الفريق"
+        "note": "يرفع ضرر عنصر الفريق الأساسي +35% عند التقاط الكريستالة."
       }
     ],
     "artifactStats": {
       "sands": [
-        "ATK%",
-        "Energy Recharge"
+        "HP%"
       ],
       "goblet": [
-        "Geo DMG Bonus",
-        "Elemental Mastery"
+        "HP%"
       ],
       "circlet": [
-        "CRIT Rate",
-        "CRIT DMG"
+        "HP%",
+        "CRIT Rate"
       ],
       "substats": [
-        "CRIT Rate / DMG",
-        "Energy Recharge",
-        "ATK% / EM"
+        "HP%",
+        "CRIT Rate (مع Favonius)",
+        "Energy Recharge"
       ],
-      "breakpoints": "CRIT Ratio 1:2 | ER: 130%-180% حسب الفريق"
+      "breakpoints": "HP: 50,000-55,000+ (بيلد الدرع الكامل)"
     }
   },
   "zibai": {
